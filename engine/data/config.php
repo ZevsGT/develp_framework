@@ -25,6 +25,4 @@ return  [
     ],
 
     'default_language' => null
-
-    
 ];
