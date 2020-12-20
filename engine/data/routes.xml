@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <route src="" cache="true" cache-time="0">
+        <controller>main</controller>
+        <action>index</action>
+    </route>
+    <route src="admin" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>index</action>
+    </route>
+    <route src="category/{name:\w+}" cache="false" cache-time="0">
+        <controller>category</controller>
+        <action>category</action>
+    </route>
+    <route src="cart/add" cache="false" cache-time="0">
+        <controller>cart</controller>
+        <action>cartadd</action>
+    </route>
+    <route src="cart/del" cache="false" cache-time="0">
+        <controller>cart</controller>
+        <action>cartdel</action>
+    </route>
+    <route src="orders" cache="false" cache-time="0">
+        <controller>cart</controller>
+        <action>orders</action>
+    </route>
+    <route src="admin/login" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>login</action>
+    </route>
+    <route src="admin/exit" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>exit</action>
+    </route>
+    <route src="admin/product/add" cache="true" cache-time="0">
+        <controller>admin</controller>
+        <action>product_add</action>
+    </route>
+    <route src="admin/product/all" cache="true" cache-time="0">
+        <controller>admin</controller>
+        <action>product_all</action>
+    </route>
+    <route src="admin/product/edit/{id:\d+}" cache="true" cache-time="0">
+        <controller>admin</controller>
+        <action>product_edit</action>
+    </route>
+    <route src="admin/orders/all" cache="true" cache-time="0">
+        <controller>admin</controller>
+        <action>orders_all</action>
+    </route>
+    <route src="admin/orders/info/{id:\d+}" cache="true" cache-time="0">
+        <controller>admin</controller>
+        <action>orders_info</action>
+    </route>
+    <route src="account/login" cache="true" cache-time="0">
+        <controller>account</controller>
+        <action>login</action>
+    </route>
+</routes>

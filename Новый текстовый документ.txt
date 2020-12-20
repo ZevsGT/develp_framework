@@ -1,0 +1,9 @@
+function clear() {
+    if (file_exists('/cache/')) {
+        foreach (glob('/cache/*') as $file) {
+            unlink($file);
+        }
+    }
+}
+
+γγω

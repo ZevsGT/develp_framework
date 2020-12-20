@@ -1,0 +1,48 @@
+.logo {
+	font-size: 1.8rem;
+}
+
+.logo:hover {
+	opacity: .8; 
+}
+
+.stage_num {
+	background: #fff;
+	border: solid 1px #212529;
+	border-radius: 50%;
+	padding: 5px 13px;
+	display: inline-block;
+	position: relative;
+}
+
+.stage {
+	list-style: none;
+}
+
+.stage li {
+	opacity: .4;
+	transition: .5s;
+}
+
+.stage li:not(:last-of-type):before {
+	content: '';
+  position: absolute;
+  left: 60%;
+	width: 80%;
+  top: 16px;
+  height: 1px;
+  background-color: #afafaf;
+  background-image: repeating-linear-gradient(90deg, #afafaf, #afafaf 2px, #fff 3px, #fff 8px);
+}
+
+.stage .stage_active{
+	opacity: 1;
+}
+
+.stage_name {
+	font-size: .8rem;
+}
+
+.stageS {
+	display: none;
+}

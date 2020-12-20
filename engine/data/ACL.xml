@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ACL>
+    <group name="Общая" id="0">
+        <controller name="main">
+            <action>index</action>
+        </controller>
+        <controller name="category">
+            <action>category</action>
+        </controller>
+        <controller name="account">
+            <action>login</action>
+        </controller>
+        <controller name="cart">
+            <action>cartadd</action>
+            <action>cartdel</action>
+            <action>orders</action>
+        </controller>
+        <controller name="admin">
+            <action>login</action>
+        </controller>
+    </group>
+
+    <group name="Администратор" id="2">
+        <controller name="admin">
+            <action>index</action>
+            <action>product_add</action>
+            <action>product_all</action>
+            <action>product_edit</action>
+            <action>orders_all</action>
+            <action>orders_info</action>
+            <action>exit</action>
+        </controller>
+    </group>
+
+    <group name="Авторизованный" id="3">
+
+    </group>
+</ACL>
