@@ -4,9 +4,21 @@
         <controller>main</controller>
         <action>index</action>
     </route>
-    <route src="admin" cache="false" cache-time="0">
+    <route src="services" cache="true" cache-time="0">
+        <controller>main</controller>
+        <action>get_list_services</action>
+    </route>
+    <route src="workers" cache="true" cache-time="0">
+        <controller>main</controller>
+        <action>get_list_workers</action>
+    </route>
+    <route src="portfolio" cache="true" cache-time="0">
+        <controller>main</controller>
+        <action>get_list_portfolio</action>
+    </route>
+    <route src="admin/portfolio" cache="false" cache-time="0">
         <controller>admin</controller>
-        <action>index</action>
+        <action>get_list_portfolio</action>
     </route>
     <route src="category/{name:\w+}" cache="false" cache-time="0">
         <controller>category</controller>

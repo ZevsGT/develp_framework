@@ -10,10 +10,8 @@ class ACL {
 	public function __construct($params){
 	    $this->params = $params;
         if (file_exists($_SERVER['DOCUMENT_ROOT'].'/engine/data/ACL.xml')) {
-            // если файл существует, то подключаемся к нему
             $this->ACL = simplexml_load_file($_SERVER['DOCUMENT_ROOT']."/engine/data/ACL.xml");
         } else {
-            // если файл не существует, выводим ошибку
             exit('error: Файл ACL не найден!');
         }
 	}
@@ -23,10 +21,15 @@ class ACL {
 		else return false;//если не найдено
 	}
 
-	public function search(){
+	private function test(){
+	  echo 'zaraza';
+	  return true;
+  }
+
+	private function search(){
 
         foreach ($this->ACL as $group){
-            if($group['id'] == 0 || $group['id'] == $_SESSION['user']['id_group']){
+            if($group['id'] == 'none' || $group['id'] == $_SESSION['user']['id_group']){
                 foreach ($group as $controller){
                     if($controller['name'] == $this->params['controller']){
                         foreach ($controller as $action){

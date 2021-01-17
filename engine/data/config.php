@@ -2,7 +2,7 @@
 
 return  [
 
-    'home_title' => 'Pizza',
+    'home_title' => 'Warp',
 
     'http_home_url' => '//framework.ru',
 
@@ -12,7 +12,7 @@ return  [
 
     'host' => 'localhost',
 
-    'dbname' => 'test',
+    'dbname' => 'warp_db',
 
     'dbuser' => 'root',
 
@@ -24,5 +24,10 @@ return  [
         //'auto_reload' => true
     ],
 
-    'default_language' => null
+    'default_language' => null,
+
+    'spa' => [
+        'spa_mode' => true,
+        'spa_load' => '/index.html'
+    ]
 ];

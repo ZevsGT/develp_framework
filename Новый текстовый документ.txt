@@ -6,4 +6,16 @@ function clear() {
     }
 }
 
-γγω
+
+
+
+ private function removeDirectory($path) {
+	    if ($_SERVER['DOCUMENT_ROOT'].'/' == $path || $_SERVER['DOCUMENT_ROOT'] == $path) return false;
+        if (is_file($path)) return unlink($path);
+        if (is_dir($path)) {
+            foreach(scandir($path) as $p) if (($p!='.') && ($p!='..'))
+                $this->removeDirectory($path.DIRECTORY_SEPARATOR.$p);
+            return rmdir($path);
+        }
+        return false;
+    }

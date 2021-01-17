@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ACL>
-    <group name="Общая" id="0">
+    <group name="Общая" id="none">
         <controller name="main">
             <action>index</action>
-        </controller>
-        <controller name="category">
-            <action>category</action>
-        </controller>
-        <controller name="account">
-            <action>login</action>
-        </controller>
-        <controller name="cart">
-            <action>cartadd</action>
-            <action>cartdel</action>
-            <action>orders</action>
+            <action>get_list_services</action>
+            <action>get_list_workers</action>
+            <action>get_list_portfolio</action>
         </controller>
         <controller name="admin">
-            <action>login</action>
+            <action>get_list_portfolio</action>
         </controller>
     </group>
 
     <group name="Администратор" id="2">
         <controller name="admin">
             <action>index</action>
+            <action>get_list_portfolio</action>
             <action>product_add</action>
             <action>product_all</action>
             <action>product_edit</action>

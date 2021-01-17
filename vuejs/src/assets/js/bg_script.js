@@ -1,15 +1,23 @@
-var Canvas = document.getElementById('canvas');
-var ctx = Canvas.getContext('2d');
+if(document.getElementById('canvas')){
+    var Canvas = document.getElementById('canvas');
+    var ctx = Canvas.getContext('2d');
+}
 
-var Around_earth = document.getElementById('around_earth');
-var ctx_f = Around_earth.getContext('2d');
+if(document.getElementById('around_earth')){
+    var Around_earth = document.getElementById('around_earth');
+    var ctx_f = Around_earth.getContext('2d');
+}
 
 var resize = function() {
-    Canvas.width = Canvas.clientWidth;
-    Canvas.height = Canvas.clientHeight;
+    if(document.getElementById('canvas')){
+        Canvas.width = Canvas.clientWidth;
+        Canvas.height = Canvas.clientHeight;
+    }
 
-    Around_earth.width = Around_earth.clientWidth;
-    Around_earth.height = Around_earth.clientHeight;
+    if(document.getElementById('around_earth')){
+        Around_earth.width = Around_earth.clientWidth;
+        Around_earth.height = Around_earth.clientHeight;
+    }
 };
 window.addEventListener('resize', resize);
 resize();
@@ -140,47 +148,55 @@ presets.x_f = function (x, y, s, dx, dy, dr, r) {
     }
 };
 
-for(var x = 0; x < Canvas.width; x++) {
-    for(var y = 0; y < Canvas.height; y++) {
-        if(Math.round(Math.random() * 8000) == 1) {
-            var s = ((Math.random() * 5) + 1) / 10;
-            if(Math.round(Math.random()) == 1)
-                elements.push(presets.o(x, y, s, 0, 0));
-            else
-                elements.push(presets.x(x, y, s, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+if(document.getElementById('canvas')){
+    for(var x = 0; x < Canvas.width; x++) {
+        for(var y = 0; y < Canvas.height; y++) {
+            if(Math.round(Math.random() * 8000) == 1) {
+                var s = ((Math.random() * 5) + 1) / 10;
+                if(Math.round(Math.random()) == 1)
+                    elements.push(presets.o(x, y, s, 0, 0));
+                else
+                    elements.push(presets.x(x, y, s, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+            }
         }
     }
 }
 
-elements_f.push(presets.o_f(90, 188,  0.8, 0, 0));
-elements_f.push(presets.o_f(120, 128,  0.6, 0, 0));
-elements_f.push(presets.x_f(65, 160,  0.5, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
-elements_f.push(presets.x_f(40, 150,  0.35, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+if(document.getElementById('around_earth')){
+    elements_f.push(presets.o_f(90, 188,  0.8, 0, 0));
+    elements_f.push(presets.o_f(120, 128,  0.6, 0, 0));
+    elements_f.push(presets.x_f(65, 160,  0.5, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+    elements_f.push(presets.x_f(40, 150,  0.35, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
 
-elements_f.push(presets.o_f(110, 388,  0.7, 0, 0));
-elements_f.push(presets.o_f(130, 435,  0.6, 0, 0));
-elements_f.push(presets.o_f(80, 420,  0.4, 0, 0));
+    elements_f.push(presets.o_f(110, 388,  0.7, 0, 0));
+    elements_f.push(presets.o_f(130, 435,  0.6, 0, 0));
+    elements_f.push(presets.o_f(80, 420,  0.4, 0, 0));
 
-elements_f.push(presets.o_f(580, 138,  0.8, 0, 0));
-elements_f.push(presets.o_f(630, 240,  0.6, 0, 0));
-elements_f.push(presets.x_f(660, 160,  0.5, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+    elements_f.push(presets.o_f(580, 138,  0.8, 0, 0));
+    elements_f.push(presets.o_f(630, 240,  0.6, 0, 0));
+    elements_f.push(presets.x_f(660, 160,  0.5, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
 
-elements_f.push(presets.x_f(540, 300,  0.5, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
-elements_f.push(presets.x_f(610, 360,  0.5, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+    elements_f.push(presets.x_f(540, 300,  0.5, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+    elements_f.push(presets.x_f(610, 360,  0.5, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
 
-elements_f.push(presets.x_f(341, 195,  0.35, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
-elements_f.push(presets.x_f(255, 196,  0.3, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
-elements_f.push(presets.x_f(200, 240,  0.2, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
-elements_f.push(presets.x_f(245, 295,  0.2, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+    elements_f.push(presets.x_f(341, 195,  0.35, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+    elements_f.push(presets.x_f(255, 196,  0.3, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+    elements_f.push(presets.x_f(200, 240,  0.2, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+    elements_f.push(presets.x_f(245, 295,  0.2, 0, 0, ((Math.random() * 3) - 1) / 10, (Math.random() * 360)));
+}
 
 setInterval(function() {
-    ctx.clearRect(0, 0, Canvas.width, Canvas.height);
-    ctx_f.clearRect(0, 0, Around_earth.width, Around_earth.height);
-
     var time = new Date().getTime();
-    for (var e in elements)
-		elements[e].draw(ctx, time);
+    if(document.getElementById('canvas')){
+        ctx.clearRect(0, 0, Canvas.width, Canvas.height);
 
-    for (var i in elements_f)
-        elements_f[i].draw(ctx_f, time);
+        for (var e in elements)
+    		elements[e].draw(ctx, time);
+    }
+    if(document.getElementById('around_earth')){
+        ctx_f.clearRect(0, 0, Around_earth.width, Around_earth.height);
+
+        for (var i in elements_f)
+            elements_f[i].draw(ctx_f, time);
+    }
 }, 10);
