@@ -284,6 +284,7 @@ header .header_text h3 {
 	padding: 15px 30px;
 	border-radius: 30px;
 	transition: .2s;
+    border: none;
 }
 
 .btn_light {
@@ -755,7 +756,7 @@ header .header_text h3 {
 	width: 100%;
 }
 
-.form-label {
+.feedback_content .form-label {
 	width: 96px;
 	text-align: left;
 	padding-top: 10px;
@@ -768,19 +769,19 @@ header .header_text h3 {
 	margin-bottom: .25rem!important;
 }
 
-.form-control {
-	display: inline-block;
+.feedback_content .form-control {
+  display: inline-block;
   width: 100%;
   background-color: rgba(255, 255, 255, 0);
   color: rgba(255, 255, 255, .5);
   border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
-.form-control::placeholder {
+.feedback_content .form-control::placeholder {
 	color: rgba(255, 255, 255, .5);
 }
 
-.form-control:focus {
+.feedback_content .form-control:focus {
 	background-color: rgba(255, 255, 255, 0);
 	border-color: #E0E0E0;
 	color: #E0E0E0;
@@ -1295,7 +1296,7 @@ footer .second_rectangle{
 		padding: 0;
 		padding-right: 4rem;
 	}
-	.form-label {
+    .feedback_content .form-label {
 		text-align: right;
 	}
 	.form-input {

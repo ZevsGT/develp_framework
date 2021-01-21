@@ -56,7 +56,7 @@
             Регистрация
           </button>
         </div>
-        <img src="images/log.svg" class="image" alt="" />
+        <img src="img/log.svg" class="image" alt="" />
       </div>
       <div class="panel right-panel">
         <div class="content">
@@ -69,7 +69,7 @@
             Авторизация
           </button>
         </div>
-        <img src="images/register.svg" class="image" alt="" />
+        <img src="img/register.svg" class="image" alt="" />
       </div>
     </div>
   </div>

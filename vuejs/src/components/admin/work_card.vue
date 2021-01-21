@@ -2,10 +2,10 @@
   <div class="w__card">
     <img :src="srcImg" alt="">
     <div class="w__tools">
-      <router-link to="#" class="btn_tools">
+      <router-link :to="href" class="btn_tools">
         <i class="fas fa-edit"></i>
       </router-link>
-      <button class="btn_tools">
+      <button class="btn_tools" @click.prevent="delete_portfolio">
         <i class="fas fa-trash"></i>
       </button>
     </div>
@@ -16,6 +16,7 @@
 <script>
 export default {
   props: {
+    index: Number,
     id: {
       type: Number,
       required: true
@@ -27,6 +28,19 @@ export default {
     srcImg: {
       type: String,
       default: 'https://mold-s.ru/upload/medialibrary/85e/85ed3bab0493ee42591c68313af24ace.png'
+    }
+  },
+  computed: {
+    href () {
+      return 'portfolio/edit/' + this.id
+    }
+  },
+  methods: {
+    delete_portfolio () {
+      this.$emit('deletePortfolio', {
+        id: this.id,
+        index: this.index
+      })
     }
   }
 }
@@ -57,9 +71,9 @@ export default {
     background-color: initial;
     border: none;
     color: #fff;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     transition: .2s;
-    margin-left: .5rem;
+    margin-left: .7rem;
   }
   .btn_tools:hover {
     color: rgba(256,256,256,.7);

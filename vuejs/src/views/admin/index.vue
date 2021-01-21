@@ -94,7 +94,7 @@
     transition: .2s;
     border-radius: 1rem;
   }
-  .router-link-exact-active{
+  .nav-bar .router-link-exact-active{
     background-color: #fff;
     box-shadow: 4px 5px 15px 0px rgba(50, 38, 174, 0.2);
     color: #F04B45;
@@ -118,6 +118,7 @@
   }
   .inp-search,
   .inp-search:focus{
+    background-color: initial;
     color: rgba(50,38,174, .5);
     border: initial;
     box-shadow: initial;
@@ -179,8 +180,32 @@
   }
   .a_l_container {
     display: grid;
-    grid-gap: 1rem;
+    grid-gap: 1.5rem;
     grid-template-rows: auto;
+  }
+  .btn_admin,
+  .btn_secondary{
+    color: #fff;
+    background-color: #3226AE;
+    padding: 7px 25px;
+  }
+  .btn_admin:hover,
+  .btn_secondary:hover{
+    color: #fff;
+    opacity: .9;
+  }
+  .btn_secondary {
+    background-color: #6c757d;
+  }
+  .modal_confirm {
+    background-color: #fff;
+    padding: 1rem 3rem;
+    border-radius: 1rem;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
   }
   @media (min-width: 576px) {
   }
@@ -206,7 +231,7 @@
     .nav-bar ul {
       padding: 1rem;
     }
-    .router-link-exact-active{
+    .nav-bar .router-link-exact-active{
       position: relative;
       transform: translateX(30px);
     }

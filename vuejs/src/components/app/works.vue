@@ -40,10 +40,9 @@ export default {
     }
   },
   async mounted () {
-    await this.$api.portfolio.get_portfolio_list({
-      spa_request: true,
-      count: this.count
-    })
+    let formData = new FormData()
+    formData.append('count', this.count)
+    await this.$api.portfolio.get_portfolio_list(formData)
       .then(response => {
         this.works = response.data
         if (response.data.length < 8) this.btn_vis = false
@@ -52,11 +51,10 @@ export default {
   },
   methods: {
     async load_portfolio () {
+      let formData = new FormData()
+      formData.append('count', this.count)
       this.btn_loading = true
-      await this.$api.portfolio.get_portfolio_list({
-        spa_request: true,
-        count: this.count
-      })
+      await this.$api.portfolio.get_portfolio_list(formData)
         .then(response => {
           this.works = this.works.concat(response.data)
           if (response.data.length < 8) this.btn_vis = false

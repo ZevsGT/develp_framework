@@ -24,7 +24,7 @@ class MainController extends Controller{
 
   public function get_list_portfolioAction(){
 	  $portfolio = new PortfolioModule($this->dataBase, $this->route);
-	  return $portfolio->get_json_8_list($_POST->count);
+	  return $portfolio->get_json_8_list($_POST['count']);
   }
 
 }

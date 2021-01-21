@@ -20,6 +20,27 @@
         <controller>admin</controller>
         <action>get_list_portfolio</action>
     </route>
+    <route src="admin/portfolio/upload_img" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>upload_img_portfolio</action>
+    </route>
+    <route src="admin/portfolio/add_new" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>add_new_portfolio</action>
+    </route>
+    <route src="admin/portfolio/edit/{id:\d+}" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>get_data_portfolio</action>
+    </route>
+    <route src="admin/portfolio/update/{id:\d+}" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>update_portfolio</action>
+    </route>
+    <route src="admin/portfolio/delete/{id:\d+}" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>delete_portfolio</action>
+    </route>
+
     <route src="category/{name:\w+}" cache="false" cache-time="0">
         <controller>category</controller>
         <action>category</action>

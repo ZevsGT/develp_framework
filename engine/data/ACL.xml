@@ -9,18 +9,21 @@
         </controller>
         <controller name="admin">
             <action>get_list_portfolio</action>
+            <action>upload_img_portfolio</action>
+            <action>add_new_portfolio</action>
+            <action>get_data_portfolio</action>
+            <action>update_portfolio</action>
+            <action>delete_portfolio</action>
         </controller>
     </group>
 
     <group name="Администратор" id="2">
         <controller name="admin">
             <action>index</action>
-            <action>get_list_portfolio</action>
-            <action>product_add</action>
-            <action>product_all</action>
-            <action>product_edit</action>
-            <action>orders_all</action>
-            <action>orders_info</action>
+            <action>add_new_portfolio</action>
+            <action>update_portfolio</action>
+            <action>delete_portfolio</action>
+            <action>upload_img_portfolio</action>
             <action>exit</action>
         </controller>
     </group>

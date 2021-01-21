@@ -16,23 +16,20 @@ class Router {
   private $config;
 	
 	public function __construct(){
-        $data = file_get_contents('php://input');
-        if($data != null) $_POST = json_decode($data);
+    if (file_exists($_SERVER['DOCUMENT_ROOT'].'/engine/data/routes.xml')) {
+        // если файл существует, то подключаемся к нему
+        $routes = simplexml_load_file($_SERVER['DOCUMENT_ROOT']."/engine/data/routes.xml");
+        $this->config = include $_SERVER['DOCUMENT_ROOT'].'/engine/data/config.php';
+    } else {
+        // если файл не существует, выводим ошибку
+        exit('error: Файл routes не найден!');
+    }
 
-        if (file_exists($_SERVER['DOCUMENT_ROOT'].'/engine/data/routes.xml')) {
-            // если файл существует, то подключаемся к нему
-            $routes = simplexml_load_file($_SERVER['DOCUMENT_ROOT']."/engine/data/routes.xml");
-            $this->config = include $_SERVER['DOCUMENT_ROOT'].'/engine/data/config.php';
-        } else {
-            // если файл не существует, выводим ошибку
-            exit('error: Файл routes не найден!');
-        }
+    foreach ($routes as $key => $value) {
+        $this->add($value['src'], $value, $value['cache'], $value['cache-time']);
+    }
 
-        foreach ($routes as $key => $value) {
-            $this->add($value['src'], $value, $value['cache'], $value['cache-time']);
-        }
-
-        unset($routes);
+    unset($routes);
 	}
 
 	public function add($route, $params, $cache, $cache_time){
@@ -45,7 +42,6 @@ class Router {
 	}
 
 	public function ACL_validate(){
-
 	  if($this->url == '') return true;//если главная страница
 
 		$ACL = new ACL($this->params);
@@ -57,7 +53,7 @@ class Router {
 	}
 
 	public function match(){
-		$url = trim($_SERVER['REQUEST_URI'], '/');
+    $url = trim($_SERVER['REQUEST_URI'], '/');
 		if(isset($_GET['spa'])) $url = strstr($url,'?spa', true );
 		$this->url = $url;
 		foreach ($this->routes as $route => $params) {
@@ -81,41 +77,50 @@ class Router {
 	}
 
 	private function load_apa_template(){
-	    if(file_exists($_SERVER['DOCUMENT_ROOT'].$this->config['spa']['spa_load']))
-	        include $_SERVER['DOCUMENT_ROOT'].$this->config['spa']['spa_load'];
-        else exit('error:spa Файл не найден!');
+    if(file_exists($_SERVER['DOCUMENT_ROOT'].$this->config['spa']['spa_load']))
+        include $_SERVER['DOCUMENT_ROOT'].$this->config['spa']['spa_load'];
+      else exit('error:spa Файл не найден!');
+  }
+
+  private function isset_data_request(){
+    $data = file_get_contents('php://input');
+    if($data != null) {
+      $_POST = json_decode($data);
+      return true;
     }
+    if(count($_POST) > 0) return true;
+    if(count($_GET) > 0) return true;
+    return false;
+  }
 
 	public function run(){
-	    if($this->config['spa']['spa_mode'] && !isset($_POST->spa_request) && !isset($_GET['spa'])){
+    if($this->config['spa']['spa_mode'] && !$this->isset_data_request()){
+          $this->load_apa_template();
+      }else {
+          if ($this->match()) {
+              if ($this->ACL_validate()) {
 
-            $this->load_apa_template();
+                  $controller = 'engine\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
+                  if (class_exists($controller)) {
+                      $action = $this->params['action'] . 'Action';
+                      if (method_exists($controller, $action)) {
 
-        }else {
-            if ($this->match()) {
-                if ($this->ACL_validate()) {
-
-                    $controller = 'engine\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
-                    if (class_exists($controller)) {
-                        $action = $this->params['action'] . 'Action';
-                        if (method_exists($controller, $action)) {
-
-                            $controller = new $controller($this->params);
-                            echo $controller->$action();
+                          $controller = new $controller($this->params);
+                          echo $controller->$action();
 
 
-                        } else {
-                            exit('action not faoun');
-                        }
-                    } else {
-                        exit("не найден module: " . $controller);
-                    }
-                }
+                      } else {
+                          exit('action not faoun');
+                      }
+                  } else {
+                      exit("не найден module: " . $controller);
+                  }
+              }
 
-            } else {
-                exit("not faund 404");
-            }
-        }
+          } else {
+              exit("not faund 404");
+          }
+      }
 	}
  
 }
