@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <routes>
-    <route src="" cache="true" cache-time="0">
+    <route src="" cache="false" cache-time="0">
         <controller>main</controller>
         <action>index</action>
     </route>
-    <route src="services" cache="true" cache-time="0">
+    <route src="services" cache="false" cache-time="0">
         <controller>main</controller>
         <action>get_list_services</action>
     </route>
-    <route src="workers" cache="true" cache-time="0">
+    <route src="workers" cache="false" cache-time="0">
         <controller>main</controller>
         <action>get_list_workers</action>
     </route>
-    <route src="portfolio" cache="true" cache-time="0">
+    <route src="portfolio" cache="false" cache-time="0">
         <controller>main</controller>
         <action>get_list_portfolio</action>
+    </route>
+    <route src="portfolio/{id:\d+}" cache="false" cache-time="0">
+        <controller>main</controller>
+        <action>getDataPortfolioId</action>
+    </route>
+    <route src="login/signin" cache="false" cache-time="0">
+        <controller>account</controller>
+        <action>signIn</action>
+    </route>
+    <route src="login/signup" cache="false" cache-time="0">
+        <controller>account</controller>
+        <action>signUp</action>
+    </route>
+    <route src="login/validate" cache="false" cache-time="0">
+        <controller>account</controller>
+        <action>validateToken</action>
+    </route>
+    <route src="login/new_token" cache="false" cache-time="0">
+        <controller>account</controller>
+        <action>getNewToken</action>
     </route>
     <route src="admin/portfolio" cache="false" cache-time="0">
         <controller>admin</controller>

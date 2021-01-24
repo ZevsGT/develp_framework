@@ -4,7 +4,7 @@
     <div class="useful_links">
 
       <div class="logo_box">
-        <img src="img/logo.svg" alt="" height="25">
+        <img src="img/logo_footer.svg" alt="">
       </div>
 
       <div class="foo-menu">
@@ -32,10 +32,10 @@
         <h5>РАБОТА С ПОРТАЛОМ</h5>
         <ul>
           <li>
-            <a href="#">Авторизоваться</a>
+            <router-link to="/login">Авторизоваться</router-link>
           </li>
           <li>
-            <a href="#">Зарегистрироваться</a>
+            <router-link to="/login">Зарегистрироваться</router-link>
           </li>
         </ul>
       </div>

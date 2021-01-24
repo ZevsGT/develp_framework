@@ -8,7 +8,6 @@ use engine\modules\UsersModule;
 class MainController extends Controller{
 
 	public function indexAction(){
-
 	  return 'Home';
 	}
 
@@ -25,6 +24,11 @@ class MainController extends Controller{
   public function get_list_portfolioAction(){
 	  $portfolio = new PortfolioModule($this->dataBase, $this->route);
 	  return $portfolio->get_json_8_list($_POST['count']);
+  }
+
+  public function getDataPortfolioIdAction() {
+    $portfolio = new PortfolioModule($this->dataBase, $this->route);
+    return $portfolio->get_data_json_portfolio_id($this->route['id']);
   }
 
 }

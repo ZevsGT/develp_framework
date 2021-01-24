@@ -59,6 +59,13 @@ class PortfolioModule extends Module {
     return $this->dataBase->trash( $portfolio );
   }
 
+  public function get_data_json_portfolio_id($id) {
+    $portfolio = $this->dataBase->getRow('SELECT id, title, body FROM portfolio WHERE id = ?', [$id]);
+    if($portfolio['body'] != null)
+      $portfolio['body'] = json_decode(gzuncompress(base64_decode($portfolio['body'])));
+    return json_encode($portfolio, JSON_NUMERIC_CHECK);
+  }
+
   public function upload_img(){
 
     $img_upload = new FileUploader(

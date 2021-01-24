@@ -29,5 +29,7 @@ return  [
     'spa' => [
         'spa_mode' => true,
         'spa_load' => '/index.html'
-    ]
+    ],
+
+    'key' => '69ca53b9f357dc0f80f2359827148475'
 ];

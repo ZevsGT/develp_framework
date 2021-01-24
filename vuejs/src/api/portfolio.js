@@ -24,6 +24,9 @@ export default function (instance) {
     },
     delete_portfolio (id, payload) {
       return instance.post('admin/portfolio/delete/' + id, payload)
+    },
+    get_data_portfolio_Id (id) {
+      return instance.get('portfolio/' + id + '?spa=get')
     }
   }
 }

@@ -1,6 +1,8 @@
 <template>
   <div class="d-modal" :class="{'d-modal-visible': visibility}">
-    <slot></slot>
+    <div>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -14,12 +16,24 @@ export default {
   },
   data () {
     return {
+      scrollbarWidth: null
     }
   },
   watch: {
     visibility () {
-      this.visibility ? document.body.style.overflow = 'hidden' : document.body.style.overflow = ''
+      if (this.visibility) {
+        document.body.style.overflow = 'hidden'
+        document.body.style.paddingRight = this.scrollbarWidth + 'px'
+      } else {
+        document.body.style.overflow = ''
+        document.body.style.paddingRight = ''
+      }
     }
+  },
+  mounted () {
+    this.scrollbarWidth = parseInt(window.innerWidth) - parseInt(document.documentElement.clientWidth)
+  },
+  methods: {
   }
 }
 </script>
@@ -34,12 +48,13 @@ export default {
     height: 100%;
     z-index: 10000;
     visibility: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     opacity: 0;
     transition: .2s;
   }
   .d-modal-visible {
     visibility: visible;
     opacity: 1;
+    overflow-y: auto;
   }
 </style>

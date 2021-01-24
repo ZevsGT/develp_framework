@@ -1,5 +1,5 @@
 <template>
-  <canvas :id="id" :style="style"></canvas>
+  <canvas ref="bg_a" :style="style"></canvas>
 </template>
 
 <script>
@@ -16,17 +16,12 @@ export default {
       type: String
     }
   },
-  data () {
-    return {
-      id: Date.now().toString(30) + Math.random().toString(30).substr(2)
-    }
-  },
   mounted () {
     this.render(this.behavior, this.options)
   },
   methods: {
     render: function (behavior = 'random', options = null) {
-      var Canvas = document.getElementById(this.id)
+      var Canvas = this.$refs.bg_a
       var ctx = Canvas.getContext('2d')
       var resize = function () {
         Canvas.width = Canvas.clientWidth

@@ -2,33 +2,8 @@
   <div class="container_l" :class="container">
     <div class="forms-container">
       <div class="signin-signup">
-        <form action="#" class="sign-in-form">
-          <h2 class="title">Авторизация</h2>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input type="email" placeholder="Email" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Пароль" />
-          </div>
-          <input type="submit" value="Войти" class="btn solid" />
-        </form>
-        <form action="#" class="sign-up-form">
-          <h2 class="title">Регистрация</h2>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input type="text" placeholder="Ваше имя" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input type="email" placeholder="Email" />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Пароль" />
-          </div>
-        </form>
+        <login-form />
+        <registration-form />
         <p class="social-text mb-0">Или войдите с помощью социальных сетей</p>
         <div class="social-media">
           <a href="#" class="social-icon">
@@ -46,26 +21,26 @@
 
     <div class="panels-container">
       <div class="panel left-panel">
-        <div class="content">
+        <div class="content_l">
           <h3>Еще не зарегистрированы?</h3>
           <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
             ex ratione. Aliquid!
           </p>
-          <button class="btn transparent" id="sign-up-btn" @click.prevent="switch_c('sign-up-mode')">
+          <button class="l_btn transparent" id="sign-up-btn" @click.prevent="switch_c('sign-up-mode')">
             Регистрация
           </button>
         </div>
         <img src="img/log.svg" class="image" alt="" />
       </div>
       <div class="panel right-panel">
-        <div class="content">
+        <div class="content_l">
           <h3>Уже зарегистрированы?</h3>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
             laboriosam ad deleniti.
           </p>
-          <button class="btn transparent" id="sign-in-btn" @click.prevent="switch_c('')">
+          <button class="l_btn transparent" id="sign-in-btn" @click.prevent="switch_c('')">
             Авторизация
           </button>
         </div>
@@ -76,8 +51,15 @@
 </template>
 
 <script>
+import LoginForm from '@/components/app/login.vue'
+import RegistrationForm from '@/components/app/registration.vue'
+
 export default {
   name: 'Login',
+  components: {
+    LoginForm,
+    RegistrationForm
+  },
   data () {
     return {
       container: ''
@@ -120,7 +102,7 @@ export default {
     z-index: 5;
   }
 
-  form {
+  .l_form {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -132,12 +114,12 @@ export default {
     grid-row: 1 / 2;
   }
 
-  form.sign-up-form {
+  .l_form.sign-up-form {
     opacity: 0;
     z-index: 1;
   }
 
-  form.sign-in-form {
+  .l_form.sign-in-form {
     z-index: 2;
   }
 
@@ -214,7 +196,7 @@ export default {
     border-color: #4481eb;
   }
 
-  .btn {
+  .l_btn {
     background-color: #5995fd;
     border: none;
     outline: none;
@@ -230,7 +212,7 @@ export default {
     transition: 0.5s;
   }
 
-  .btn:hover {
+  .l_btn:hover {
     background-color: #4d84e2;
     color: #fff;
   }
@@ -283,7 +265,7 @@ export default {
     padding: 3rem 12% 2rem 17%;
   }
 
-  .panel .content {
+  .panel .content_l {
     color: #fff;
     transition: transform 0.9s ease-in-out;
     transition-delay: 0.6s;
@@ -300,7 +282,7 @@ export default {
     padding: 0.7rem 0;
   }
 
-  .btn.transparent {
+  .l_btn.transparent {
     margin: 0;
     background: none;
     border: 2px solid #fff;
@@ -309,12 +291,12 @@ export default {
     font-size: 0.8rem;
   }
 
-  .btn.transparent:hover {
+  .l_btn.transparent:hover {
     opacity: .8;
   }
 
   .right-panel .image,
-  .right-panel .content {
+  .right-panel .content_l {
     transform: translateX(800px);
   }
 
@@ -326,7 +308,7 @@ export default {
   }
 
   .container_l.sign-up-mode .left-panel .image,
-  .container_l.sign-up-mode .left-panel .content {
+  .container_l.sign-up-mode .left-panel .content_l {
     transform: translateX(-800px);
   }
 
@@ -345,7 +327,7 @@ export default {
   }
 
   .container_l.sign-up-mode .right-panel .image,
-  .container_l.sign-up-mode .right-panel .content {
+  .container_l.sign-up-mode .right-panel .content_l {
     transform: translateX(0%);
   }
 
@@ -401,7 +383,7 @@ export default {
       transition-delay: 0.6s;
     }
 
-    .panel .content {
+    .panel .content_l {
       padding-right: 15%;
       transition: transform 0.9s ease-in-out;
       transition-delay: 0.8s;
@@ -416,7 +398,7 @@ export default {
       padding: 0.5rem 0;
     }
 
-    .btn.transparent {
+    .l_btn.transparent {
       width: 110px;
       height: 35px;
       font-size: 0.7rem;
@@ -440,17 +422,17 @@ export default {
     }
 
     .container_l.sign-up-mode .left-panel .image,
-    .container_l.sign-up-mode .left-panel .content {
+    .container_l.sign-up-mode .left-panel .content_l {
       transform: translateY(-300px);
     }
 
     .container_l.sign-up-mode .right-panel .image,
-    .container_l.sign-up-mode .right-panel .content {
+    .container_l.sign-up-mode .right-panel .content_l {
       transform: translateY(0px);
     }
 
     .right-panel .image,
-    .right-panel .content {
+    .right-panel .content_l {
       transform: translateY(300px);
     }
 
@@ -461,14 +443,14 @@ export default {
   }
 
   @media (max-width: 570px) {
-    form {
+    .l_form {
       padding: 0 1.5rem;
     }
 
     .image {
       display: none;
     }
-    .panel .content {
+    .panel .content_l {
       padding: 0.5rem 1rem;
     }
     .container_l {

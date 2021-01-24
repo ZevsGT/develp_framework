@@ -9,7 +9,7 @@
       <p class="discription_box">
         {{description}}
       </p>
-      <a class="btn_ btn_light text-center" href="#">Подробнее</a>
+      <a class="btn_ btn_light text-center" href="#" @click.prevent="more_details">Подробнее</a>
     </div>
   </div>
 </template>
@@ -73,6 +73,9 @@ export default {
       let sum = 0
       for (let i in array) sum += array[i]
       return sum
+    },
+    more_details () {
+      this.$emit('moreDetails', this.id)
     }
   }
 }

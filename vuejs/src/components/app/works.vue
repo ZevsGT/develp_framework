@@ -11,6 +11,7 @@
         :description="work.description"
         :srcImg="work.src_preview"
         :color="work.color"
+        @moreDetails="more_details"
       />
 
       <!--  end  -->
@@ -22,21 +23,53 @@
       </a>
     </div>
   </div>
+
+  <modal :visibility="visibility" @click="close_more_details">
+    <div class="container modal-portfolio" @click.stop>
+      <button class="btn_ btn-p-close" @click="close_more_details">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="modal-portfolio-title mb-3">
+        <span>{{work_more_details.title}}</span>
+      </div>
+      <div class="modal-portfolio-content">
+        <component
+          v-for="(component, index) in work_more_details.body"
+          :key="index"
+          :is="component.type_name"
+          :Sdata="component.Sdata"
+          :visibleTools="false"
+        />
+      </div>
+      <div class="modal-portfolio-review">
+      </div>
+    </div>
+  </modal>
 </template>
 
 <script>
 import WorksCard from '@/components/app/work_card.vue'
+import modal from '@/components/modal.vue'
+import ImageSection from '@/components/work/w_image_section.vue'
 
 export default {
   components: {
-    WorksCard
+    WorksCard,
+    modal,
+    ImageSection
   },
   data () {
     return {
+      visibility: false,
       count: 0,
       btn_vis: true,
       btn_loading: false,
-      works: []
+      works: [],
+      work_more_details: {
+        id: null,
+        title: null,
+        body: []
+      }
     }
   },
   async mounted () {
@@ -61,7 +94,57 @@ export default {
           this.count += response.data.length
           this.btn_loading = false
         })
+    },
+    more_details (id) {
+      this.visibility = true
+      this.$api.portfolio.get_data_portfolio_Id(id)
+        .then(response => {
+          this.work_more_details = response.data
+          history.pushState(null, null, '/portfolio/' + id)
+        })
+    },
+    close_more_details () {
+      this.visibility = false
+      this.work_more_details = {
+        id: null,
+        title: null,
+        body: []
+      }
+      history.pushState(null, null, this.$route.fullPath)
     }
   }
 }
 </script>
+
+<style>
+  .modal-portfolio {
+    padding: 1rem 0;
+    background-color: initial;
+    border-radius: 1rem;
+  }
+  .modal-portfolio-title {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  .modal-portfolio-content,
+  .modal-portfolio-review{
+    background-color: #F7F7FF;
+    color: #2C4D7A;
+  }
+  .modal-portfolio-review {
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+  .btn-p-close {
+    position: fixed;
+    top: 1rem;
+    right: 2rem;
+    padding: .2rem .6rem;
+    display: block;
+    border-radius: 50%;
+  }
+  .btn-p-close:hover {
+    opacity: .7;
+  }
+</style>

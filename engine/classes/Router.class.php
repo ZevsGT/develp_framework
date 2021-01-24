@@ -54,7 +54,7 @@ class Router {
 
 	public function match(){
     $url = trim($_SERVER['REQUEST_URI'], '/');
-		if(isset($_GET['spa'])) $url = strstr($url,'?spa', true );
+		if(count($_GET) > 0) $url = strstr($url,'?', true );
 		$this->url = $url;
 		foreach ($this->routes as $route => $params) {
 			if (preg_match($route, $url, $matches)) {

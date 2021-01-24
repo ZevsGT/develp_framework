@@ -6,6 +6,13 @@
             <action>get_list_services</action>
             <action>get_list_workers</action>
             <action>get_list_portfolio</action>
+            <action>getDataPortfolioId</action>
+        </controller>
+        <controller name="account">
+            <action>signIn</action>
+            <action>signUp</action>
+            <action>validateToken</action>
+            <action>getNewToken</action>
         </controller>
         <controller name="admin">
             <action>get_list_portfolio</action>
@@ -19,7 +26,6 @@
 
     <group name="Администратор" id="2">
         <controller name="admin">
-            <action>index</action>
             <action>add_new_portfolio</action>
             <action>update_portfolio</action>
             <action>delete_portfolio</action>

@@ -4,6 +4,9 @@ namespace engine\modules;
 use engine\classes\Module;
 
 class UsersModule extends Module {
+
+  private $user;
+
   public function get_json_workers() {
     $workers = $this->dataBase->getAll( '
         SELECT users.id, CONCAT(users.name, \' \', users.surname) AS name, user_role.name AS role, users.link_vk, users.status, users.src_photo, users.bg_src_img FROM `users` 
@@ -11,5 +14,14 @@ class UsersModule extends Module {
         WHERE `worker`= 1'
      );
     return json_encode($workers, JSON_NUMERIC_CHECK);
+  }
+
+  public function load_user_data($email){
+    $user = $this->dataBase->findOne( 'users', ' email = ? ', [ $email ]);
+    $this->user = $user;
+  }
+
+  public function getUser(){
+    return $this->user;
   }
 }

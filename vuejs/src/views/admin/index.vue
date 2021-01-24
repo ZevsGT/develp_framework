@@ -32,12 +32,6 @@
             <li>
               <a href="/" target="_blank">Главаня сайта</a>
             </li>
-            <li>
-              <a href="#">Меню 1</a>
-            </li>
-            <li>
-              <a href="#">Меню 2</a>
-            </li>
           </ul>
         </div>
         <div class="u_bar">
@@ -45,9 +39,13 @@
             <a href="#"><i class="fas fa-bell"></i></a>
           </span>
           <span>
-            <a href="#">
-            <img src="https://sun9-53.userapi.com/impf/lr7XeT0hlQPKFYJY2qx4CWsGVDCM9La2wegYIQ/ix7hxZpuLAM.jpg?size=1280x855&quality=96&sign=da28311751703d1c6640ab867b31ec7e&type=album" alt="">
-          </a>
+            <a href="#" class="" @click.prevent>
+              <img :src="src_u_photo" alt="">
+            </a>
+            <ul class="">
+              <li><a class="" href="#">Профиль</a></li>
+              <li><a class="" href="#" @click.prevent="logout">Выйти</a></li>
+            </ul>
           </span>
         </div>
       </div>
@@ -57,6 +55,30 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      dropdown: false,
+      src_u_photo: 'https://bh.by/upload/iblock/112/1127994722e9b9e78c1f69861320a45d.jpg'
+    }
+  },
+  mounted () {
+    if (this.$store.state.user === null) {
+      let user = JSON.parse(window.atob(localStorage.getItem('hash01p')))
+      this.$store.commit('setUser', user)
+    }
+    this.src_u_photo = this.$store.state.user.src_photo
+  },
+  methods: {
+    logout () {
+      this.$api.auth.logot()
+      this.$router.push({ name: 'Login' })
+    }
+  }
+}
+</script>
 
 <style>
   .a_container {
