@@ -12,7 +12,7 @@ use engine\modules\UsersModule;
 class AccountController extends Controller{
 	
 	public function signInAction(){
-	  $user = new UsersModule($this->dataBase, $this->route);
+	  $user = new UsersModule($this->dataBase);
     $user->load_user_data($_POST->email);
 	  if($user->getUser()) {
       if(password_verify($_POST->password, $user->getUser()->password)){

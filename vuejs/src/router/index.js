@@ -15,12 +15,29 @@ const routes = [
     name: 'Login',
     component: () => import('../views/LoginAndRegister.vue')
   },
-  AdminModule
+  AdminModule,
+  {
+    path: '/portfolio/:id',
+    name: 'PortfolioPage',
+    component: () => import('../views/PortfolioPage.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: '404',
+    component: () => import('../views/404.vue')
+  }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash
+      }
+    }
+  }
 })
 
 router.beforeEach((to, from, next) => {

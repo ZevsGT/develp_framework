@@ -19,6 +19,10 @@ export default {
   mounted () {
     this.render(this.behavior, this.options)
   },
+  data () {
+    return {
+    }
+  },
   methods: {
     render: function (behavior = 'random', options = null) {
       var Canvas = this.$refs.bg_a
@@ -27,7 +31,7 @@ export default {
         Canvas.width = Canvas.clientWidth
         Canvas.height = Canvas.clientHeight
       }
-      window.addEventListener('resize', resize)
+      document.addEventListener('resize', resize)
       resize()
       var elements = []
       var presets = {}

@@ -36,6 +36,10 @@
         <controller>account</controller>
         <action>getNewToken</action>
     </route>
+    <route src="new_order" cache="false" cache-time="0">
+        <controller>orders</controller>
+        <action>newOrder</action>
+    </route>
     <route src="admin/portfolio" cache="false" cache-time="0">
         <controller>admin</controller>
         <action>get_list_portfolio</action>

@@ -150,37 +150,31 @@ button:active, button:focus, a:active, a:focus { outline: none; }
 }
 
 header {
-	height: 500px;
 	border-bottom-left-radius: 1em;
 	border-bottom-right-radius: 1em;
 	background: linear-gradient(111.52deg, rgba(33, 25, 32, 0.97) 30.67%, rgba(52, 144, 247, 0.99) 89.43%);
 	background-size: cover;
 	overflow: hidden;
 	padding: 1rem 1rem;
-	display: grid;
-	grid-template-rows: auto;
-	grid-template-areas: 
-											"logo" 
-											"header_text" 
-											"rectangle";
+    position: relative;
 }
 
-.rectangle {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-area: rectangle;
-	height: 100px;
-	width: 1px;
+.nav-head {
+    display: flex;
+}
+
+.head-body {
+    display: grid;
 }
 
 .first_rectangle {
 	width: 300px;
 	height: 300px;
-	position: relative;
+	position: absolute;
 	display: block;
 	background: rgba(196, 196, 196, 0.2);
-	top: -30%;
-	left: -45%;
+	top: 45%;
+	left: -70%;
 	z-index: 0;
 	border-radius: 70px;
 	transform: rotate(32.48deg);
@@ -189,24 +183,24 @@ header {
 .second_rectangle {
 	width: 600px;
 	height: 1000px;
-	position: relative;
+	position: absolute;
 	display: block;
 	background: rgba(57, 104, 246, 0.2);
 	z-index: 0;
-	top: -90%;
-	right: -25%;
+	top: -40%;
+	right: -200%;
 	border-radius: 120px;
 	transform: rotate(-46.63deg);
 }
 
 header .nav_bar {
 	position: relative;
-  z-index: 2;
+    z-index: 2;
 	grid-area: nav_bar;
 	grid-row: 1;
 	vertical-align: middle;
 	height: 50px;
-	text-align: right;
+	margin-left: auto;
 	display: none;
 }
 
@@ -248,7 +242,6 @@ header .header_text {
   color: #fff;
   position: relative;
   z-index: 2;
-  grid-area: header_text;
   padding-top: 0;
   width: 100%;
   text-align: center;
@@ -260,9 +253,8 @@ header .header_text h1 {
 	margin-bottom: 15px;
 }
 
-
 header .header_text h3 {
-	font-weight: 10;
+	font-weight: lighter;
 	font-size: .7rem;
 	line-height: 1.3rem;
 	margin-bottom: 25px;
@@ -308,13 +300,10 @@ header .header_text h3 {
 	background: #FBFBFB;
 }
 
-
 .b_head_img {
 	display: none;
-	grid-area: b_head_img;
 	position: relative;
 	width: 700px;
-	height: 550px;
 	background-image: url(../img/head_earth_img.png);
 	background-repeat: no-repeat;
 	background-position: center bottom;
@@ -512,20 +501,19 @@ header .header_text h3 {
 	padding: 1.5rem 3rem;
 	overflow: hidden;
 	height: 450px;
-    position: relative;}
+    position: relative;
+}
 
 .command_box .first_rectangle{
-	top: -80%;
-	left: -11%;
-	display: block;
+	top: 20%;
+	left: -1%;
 	background: rgba(196, 196, 196, 0.1);
 }
 
 .command_box .second_rectangle{
 	background: rgba(46, 181, 208, 0.2);
-	top: -230%;
-	left: 80%;
-	display: block;
+	top: -50%;
+	right: -23%;
 }
 
 .theme-profile{
@@ -630,7 +618,7 @@ header .header_text h3 {
 .card_works .tittle_box P {
 	height: 190PX;
 	overflow: hidden;
-	font-weight: 10;
+	font-weight: lighter;
 }
 
 .card_works .tittle_box .btn_light {
@@ -879,6 +867,7 @@ footer {
 	padding-bottom: 1rem;
 	color: #fff;
 	overflow: hidden;
+    position: relative;
 }
 
 footer hr {
@@ -951,25 +940,16 @@ footer a:hover {
 	z-index: 1;
 }
 
-footer .fr-box {
-	height: 1px;
-	position: relative;
-	top: -190px;
-	z-index: 0;
-}
-
 footer .first_rectangle{
-	top: -5px;
-	left: -11%;
-	display: block;
+	top: 20%;
+	left: -2%;
 	background: rgba(196, 196, 196, 0.1);
 }
 
 footer .second_rectangle{
-	display: block;
 	background: rgba(219, 64, 42, 0.2);
-	top: -600px;
-	left: 90%;
+	top: -100%;
+	right: -30%;
 }
 
 @-webkit-keyframes cloud-anim {
@@ -982,12 +962,24 @@ footer .second_rectangle{
   }
 
 @media (min-width: 360px) {
+    .first_rectangle {
+        left: -60%;
+    }
+    .second_rectangle {
+        right: -170%;
+    }
 	.info_box .inf_contetnt {
 		width: 300px;
 	}
 }
 
 @media (min-width: 576px) {
+    .first_rectangle {
+        left: -40%;
+    }
+    .second_rectangle {
+        right: -100%;
+    }
 	.services {
 		grid-template-columns: 1fr 1fr;
 	}
@@ -1019,16 +1011,14 @@ footer .second_rectangle{
 	}
 	header {
 		padding: 1rem 1rem;
-		height: 550px;
 	}
 	header .header_text {
-    padding-top: 40px;
+        padding-top: 40px;
 	}
 	.info_box {
 		padding: 1.5rem 1rem;
 	}
 	header .header_text h1 {
-		font-weight: bold;
 		font-size: 3rem;
 	}
 	header .header_text h3 {
@@ -1047,6 +1037,12 @@ footer .second_rectangle{
 }
 
 @media (min-width: 768px) {
+    .first_rectangle {
+        left: -15%;
+    }
+    .second_rectangle {
+        right: -60%;
+    }
 	.services {
 		grid-template-columns: 1fr 1fr;
 	}
@@ -1093,11 +1089,6 @@ footer .second_rectangle{
 	}
 	header {
 		padding: 1rem 1rem;
-		height: 550px;
-		grid-template-areas: 
-											"logo logo" 
-											"header_text b_head_img" 
-											"rectangle rectangle";
 	}
 	header .header_text {
     padding-top: 40px;
@@ -1108,15 +1099,15 @@ footer .second_rectangle{
 	header .header_text h3 {
 		line-height: 1.8rem;
 	}
-
+    .head-body {
+        grid-template-columns: 1fr 1fr;
+    }
 	.b_head_img {
 		display: block;
 		width: 400px;
-		height: 550px;
-		grid-column: 1/1;
-		margin-left: 45%;
 		background-size: 100%;
 		background-position: center top;
+        transform: translateX(-10%);
 	}	
 	.info_box {
 		padding: 1.5rem 1rem;
@@ -1141,11 +1132,6 @@ footer .second_rectangle{
 	}
 	header {
 		padding: 1rem 2rem;
-		min-height: 700px;
-		grid-template-areas: 
-											"logo nav_bar nav_bar nav_bar" 
-											"header_text header_text b_head_img b_head_img" 
-											"rectangle rectangle rectangle rectangle";
 	}
 	header .nav_bar {
 		display: block;
@@ -1156,14 +1142,19 @@ footer .second_rectangle{
 	.b_head_img {
 		width: 700px;
 		height: 550px;
-		grid-column: 1/5;
-		margin-left: 29%;
 		background-size: initial;
 		background-position: center bottom;
+        transform: translateX(-20%);
 	}
 	.b_head_img canvas {
 		display: block;
-	}	
+	}
+    .first_rectangle {
+        left: -9%;
+    }
+    .second_rectangle {
+        right: -15%;
+    }
 	.info_box {
 		padding: 1.5rem 2rem;
 	}
@@ -1246,6 +1237,12 @@ footer .second_rectangle{
 }
 
 @media (min-width: 1200px) {
+    .first_rectangle {
+        left: -6%;
+    }
+    .second_rectangle {
+        right: -4%;
+    }
 	.services {
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 	}
@@ -1267,17 +1264,10 @@ footer .second_rectangle{
 	header {
 		padding: 1rem 4rem;
 	}
-	.second_rectangle {
-		right: -40%;
-	}
-	.first_rectangle {
-		left: -40%;
-	}
 	.b_head_img {
 		width: 700px;
 		height: 550px;
-		grid-column: 2/5;
-		margin-left: 26%;
+        transform: translateX(-15%);
 	}
 	.info_box {
 		padding: 1.5rem 4rem;
@@ -1334,17 +1324,10 @@ footer .second_rectangle{
 		padding: 1rem 6rem;
 	}
 	.b_head_img {
-		grid-column: 3/5;
-		margin-left: 0;
+        transform: translateX(0);
 	}
 	.info_box {
 		padding: 1.5rem 6rem;
-	}
-	.second_rectangle {
-		right: -60%;
-	}
-	.first_rectangle {
-		left: -60%;
 	}
 	.inf_circle_line::after {
 		width: 182px;

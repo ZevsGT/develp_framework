@@ -8,7 +8,9 @@
     <component-feedback/>
     <component-footer/>
   </div>
-  <component-bg-animated/>
+  <component-bg-animated
+  :style="'position: fixed; height: 100vh'"
+  />
 </template>
 
 <script>
@@ -39,6 +41,9 @@ export default {
     'component-feedback': ComponentFeedback,
     'component-footer': ComponentFooter,
     'component-bg-animated': ComponentBgFnimated
+  },
+  mounted () {
+    if (this.$router.hash) console.log(this.$router.hash)
   },
   computed: {
     classNav_list: function () {

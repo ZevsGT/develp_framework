@@ -7,7 +7,7 @@ class Module{
 	protected $dataBase;
 	protected $route;
 	
-	function __construct($dataBase, $route, $twig = null){
+	function __construct($dataBase, $route = null, $twig = null){
 		$this->twig = $twig;
 		$this->dataBase = $dataBase;
 		$this->route = $route;

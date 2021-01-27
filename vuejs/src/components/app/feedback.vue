@@ -12,14 +12,14 @@
         <form action="" class="form_box">
           <div class="form-input">
             <label for="exampleFormControlInput1" class="form-label">Email</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            <input v-model="form.email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
           </div>
           <div class="form-input">
             <label for="exampleFormControlTextarea1" class="form-label">Сообщение</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ваше сообщение" rows="3"></textarea>
+            <textarea v-model="form.message" class="form-control" id="exampleFormControlTextarea1" placeholder="Ваше сообщение" rows="3"></textarea>
           </div>
           <div class="form-submit-box">
-            <button type="submit" class="btn_ btn_submit">Отправить</button>
+            <button type="submit" class="btn_ btn_submit" @click.prevent="send">Отправить</button>
             <span class="oferta">Нажимая кнопку “Отправить” вы даете согласие на обработку персональных электронных данных.</span>
           </div>
         </form>
@@ -45,5 +45,24 @@
 
 <script>
 export default {
+  data () {
+    return {
+      form: {
+        email: null,
+        message: null
+      }
+    }
+  },
+  methods: {
+    async send () {
+      await this.$api.orders.newOrder(this.form)
+        .then(response => {
+          if (response.data.state === 'ready') {
+            this.form.email = null
+            this.form.message = null
+          }
+        })
+    }
+  }
 }
 </script>

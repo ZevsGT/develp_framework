@@ -9,7 +9,7 @@
       <p class="discription_box">
         {{description}}
       </p>
-      <a class="btn_ btn_light text-center" href="#" @click.prevent="more_details">Подробнее</a>
+      <a class="btn_ btn_light text-center" :href="href" @click.prevent="more_details">Подробнее</a>
     </div>
   </div>
 </template>
@@ -41,7 +41,8 @@ export default {
   data () {
     return {
       form: ['', 'card_form_1', 'card_form_2'],
-      probability: [25, 4, 2]
+      probability: [25, 4, 2],
+      href: '/portfolio/' + this.id
     }
   },
   computed: {

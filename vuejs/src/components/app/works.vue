@@ -127,11 +127,20 @@ export default {
     font-weight: bold;
     font-size: 1.2rem;
   }
-  .modal-portfolio-content,
-  .modal-portfolio-review{
-    background-color: #F7F7FF;
+  .modal-portfolio-content {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+  .modal-portfolio-content {
+    background-color: #e2e2ea;
     color: #2C4D7A;
   }
+
+  .modal-portfolio-review {
+    background-color: #f1f1f9;
+    color: #2C4D7A;
+  }
+
   .modal-portfolio-review {
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
@@ -140,9 +149,11 @@ export default {
     position: fixed;
     top: 1rem;
     right: 2rem;
-    padding: .2rem .6rem;
+    padding: 0;
     display: block;
-    border-radius: 50%;
+    background-color: initial;
+    color: #fff;
+    font-size: 1.2rem;
   }
   .btn-p-close:hover {
     opacity: .7;

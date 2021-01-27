@@ -1,48 +1,34 @@
 <template>
-  <header>
-    <a class="logo" href="#"><img src="img/logo.svg" alt="" height="35"></a>
-    <nav class="nav_bar">
-      <ul>
-        <li>
-          <a href="#">Главная</a>
-        </li>
-        <li>
-          <a href="#howwework">Как мы работаем</a>
-        </li>
-        <li>
-          <a href="#services">Услуги</a>
-        </li>
-        <li>
-          <a href="#command">Наша команда</a>
-        </li>
-        <li>
-          <a href="#portfolio">Портфолио</a>
-        </li>
-      </ul>
-    </nav>
-    <div class="header_text">
-      <h1>Привет!<br>Мы команда разработчиков</h1>
-      <h3>Нас всегда привлекал дизайн и разработка. Нам нравится каждый аспект своего дела и мы любим разрабатывать веб-сайты и мобильные приложения от начала и до конца. Создадим сайт любой сложности для Вас или Вашего бизнеса качественно и в короткие сроки.</h3>
-      <a class="btn_ btn_contact_light" href="#feedback">Связаться с нами</a>
+  <header-oomponent>
+    <nav-head />
+    <div class="head-body mb-5">
+      <div class="header_text">
+        <h1>Привет!<br>Мы команда разработчиков</h1>
+        <h3>Нас всегда привлекал дизайн и разработка. Нам нравится каждый аспект своего дела и мы любим разрабатывать веб-сайты и мобильные приложения от начала и до конца. Создадим сайт любой сложности для Вас или Вашего бизнеса качественно и в короткие сроки.</h3>
+        <a class="btn_ btn_contact_light" href="#feedback">Связаться с нами</a>
+      </div>
+      <div class="b_head_img">
+        <component-bg-animated
+          :behavior="behavior"
+          :options="options"
+          :style="'opacity: .8;'"
+        />
+      </div>
     </div>
-    <div class="b_head_img">
-      <component-bg-animated
-        :behavior="behavior"
-        :options="options"
-        :style="'opacity: .8;'"
-      />
-    </div>
-    <div class="rectangle">
-      <span class="first_rectangle"></span>
-      <span class="second_rectangle"></span>
-    </div>
-  </header>
+  </header-oomponent>
 </template>
 
 <script>
 import ComponentBgFnimated from '@/components/app/bg_animated.vue'
+import HeaderComponent from '@/components/app/header.vue'
+import NavHead from '@/components/app/nav_head.vue'
 
 export default {
+  components: {
+    'component-bg-animated': ComponentBgFnimated,
+    'header-oomponent': HeaderComponent,
+    'nav-head': NavHead
+  },
   data () {
     return {
       behavior: 'stated',
@@ -177,9 +163,6 @@ export default {
         }
       ]
     }
-  },
-  components: {
-    'component-bg-animated': ComponentBgFnimated
   }
 }
 </script>

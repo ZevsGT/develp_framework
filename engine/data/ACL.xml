@@ -14,6 +14,9 @@
             <action>validateToken</action>
             <action>getNewToken</action>
         </controller>
+        <controller name="orders">
+            <action>newOrder</action>
+        </controller>
         <controller name="admin">
             <action>get_list_portfolio</action>
             <action>upload_img_portfolio</action>
@@ -30,7 +33,6 @@
             <action>update_portfolio</action>
             <action>delete_portfolio</action>
             <action>upload_img_portfolio</action>
-            <action>exit</action>
         </controller>
     </group>
 

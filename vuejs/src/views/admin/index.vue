@@ -11,10 +11,31 @@
               </a>
             </li>
           </router-link>
+          <router-link  to="/admin/orders" v-slot="{ href, isExactActive }">
+            <li class="link-nav" :class="isExactActive && 'router-link-exact-active'">
+              <a :href="href">
+                <i class="fas fa-boxes"></i>
+              </a>
+            </li>
+          </router-link>
           <router-link to="/admin/portfolio" v-slot="{ href, isExactActive }">
             <li class="link-nav" :class="isExactActive && 'router-link-exact-active'">
               <a :href="href">
                 <i class="fas fa-briefcase"></i>
+              </a>
+            </li>
+          </router-link>
+          <router-link  to="/admin/users" v-slot="{ href, isExactActive }">
+            <li class="link-nav" :class="isExactActive && 'router-link-exact-active'">
+              <a :href="href">
+                <i class="fas fa-users"></i>
+              </a>
+            </li>
+          </router-link>
+          <router-link  to="/admin/static_page" v-slot="{ href, isExactActive }">
+            <li class="link-nav" :class="isExactActive && 'router-link-exact-active'">
+              <a :href="href">
+                <i class="fas fa-paperclip"></i>
               </a>
             </li>
           </router-link>

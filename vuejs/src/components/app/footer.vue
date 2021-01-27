@@ -4,26 +4,23 @@
     <div class="useful_links">
 
       <div class="logo_box">
-        <img src="img/logo_footer.svg" alt="">
+        <img src="/img/logo_footer.svg" alt="">
       </div>
 
       <div class="foo-menu">
         <h5>НАВИГАЦИЯ</h5>
         <ul>
           <li>
-            <a href="#">Главная</a>
+            <router-link to="/#services">Услуги</router-link>
           </li>
           <li>
-            <a href="#">Услуги</a>
+            <router-link to="/#portfolio">Портфолио</router-link>
           </li>
           <li>
-            <a href="#">Портфолио</a>
+            <router-link to="/#command">Наша команда</router-link>
           </li>
           <li>
-            <a href="#">Наша команда</a>
-          </li>
-          <li>
-            <a href="#">Как мы работаем</a>
+            <router-link to="/#howwework">Как мы работаем</router-link>
           </li>
         </ul>
       </div>
@@ -78,10 +75,8 @@
       </div>
     </div>
 
-    <div class="fr-box">
-      <span class="first_rectangle"></span>
-      <span class="second_rectangle"></span>
-    </div>
+    <span class="first_rectangle"></span>
+    <span class="second_rectangle"></span>
 
   </footer>
 </template>

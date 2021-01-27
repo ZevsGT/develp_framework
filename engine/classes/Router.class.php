@@ -88,6 +88,7 @@ class Router {
       $_POST = json_decode($data);
       return true;
     }
+    if(getallheaders()['Accept'] === 'application/json' || getallheaders()['Accept'] === 'multipart/form-data') return true;
     if(count($_POST) > 0) return true;
     if(count($_GET) > 0) return true;
     return false;
