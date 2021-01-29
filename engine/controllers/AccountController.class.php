@@ -26,7 +26,7 @@ class AccountController extends Controller{
           'name' => $user->getUser()->name . ' ' . $user->getUser()->surname,
           'src_photo' => $user->getUser()->src_photo,
           'group_id' => $user->getUser()->group_id
-        ], 1);
+        ], 900);
         $answer['refresh_token'] = $token->create_token([
           'id' => $user->getUser()->id,
           'name' => $user->getUser()->name . ' ' . $user->getUser()->surname,
