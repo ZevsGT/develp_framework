@@ -14,6 +14,7 @@ spl_autoload_register(function ($class) {
 
 header('Access-Control-Allow-Headers: X-Requested-With, content-type');//убрать на продакшен
 header('Access-Control-Allow-Origin: *');//убрать на продакшен
+header('Access-Control-Allow-Headers: *');
 
 
 $priv = new Router();

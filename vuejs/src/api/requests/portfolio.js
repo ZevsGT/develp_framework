@@ -22,8 +22,8 @@ export default function (instance) {
     update_portfolio (id, payload) {
       return instance.post('admin/portfolio/update/' + id, payload)
     },
-    delete_portfolio (id, payload) {
-      return instance.post('admin/portfolio/delete/' + id, payload)
+    delete_portfolio (id) {
+      return instance.post('admin/portfolio/delete/' + id)
     },
     get_data_portfolio_Id (id) {
       return instance.get('portfolio/' + id)

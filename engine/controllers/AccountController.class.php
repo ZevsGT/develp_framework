@@ -10,6 +10,10 @@ use engine\classes\Token;
 use engine\modules\UsersModule;
 
 class AccountController extends Controller{
+
+  public function getStatusAction() {
+    return json_encode($this->route['RESPONSE']);
+  }
 	
 	public function signInAction(){
 	  $user = new UsersModule($this->dataBase);
@@ -22,16 +26,24 @@ class AccountController extends Controller{
           'name' => $user->getUser()->name . ' ' . $user->getUser()->surname,
           'src_photo' => $user->getUser()->src_photo,
           'group_id' => $user->getUser()->group_id
-        ], 900);
-        $answer['disposable_token'] = $token->create_token(['hash' => $answer['token']]);
-        $answer['state'] = 'ready';
+        ], 1);
+        $answer['refresh_token'] = $token->create_token([
+          'id' => $user->getUser()->id,
+          'name' => $user->getUser()->name . ' ' . $user->getUser()->surname,
+          'src_photo' => $user->getUser()->src_photo,
+          'group_id' => $user->getUser()->group_id
+        ]);
+        $user->store_user_token($answer['refresh_token']);
+        $answer['status'] = 'ready';
         return json_encode($answer);
       } else {
-        $answer['error'] = 'W_L_P';//Неверный логин или пароль
+        $answer['status'] = 'error';
+        $answer['message'] = 'W_L_P';//Неверный логин или пароль
         return json_encode($answer);
       }
     } else {
-      $answer['error'] = 'U_NF';//Пользователь не найден
+      $answer['status'] = 'error';
+      $answer['message'] = 'U_NF';//Пользователь не найден
       return json_encode($answer);
     }
 	}
@@ -58,27 +70,35 @@ class AccountController extends Controller{
 
   public function getNewTokenAction() {
     $token = new Token($this->config['key'], 'sha256', 'JWT');
-    $disposable_token = explode('.', $_POST->disposable_token);
-    $disposable_token = json_decode(base64_decode($disposable_token[1]));
-    if($_POST->token == $disposable_token->hash){
-      if($token->verifi_token($_POST->token) && $token->verifi_token($_POST->disposable_token)){
-        $token->setData($_POST->token);
+
+    if($token->verifi_token($_POST->refresh_token)){
+      $user = new UsersModule($this->dataBase);
+      $user->load_user($token->getData()->id);
+      if($_POST->refresh_token == $user->getUser()->rtoken){
         $answer['token'] = $token->create_token([
           'id' =>  $token->getData()->id,
           'name' => $token->getData()->name,
           'src_photo' => $token->getData()->src_photo,
           'group_id' => $token->getData()->group_id
         ], 900);
-        $answer['disposable_token'] = $token->create_token(['hash' => $answer['token']]);
+        $answer['refresh_token'] = $token->create_token([
+          'id' =>  $token->getData()->id,
+          'name' => $token->getData()->name,
+          'src_photo' => $token->getData()->src_photo,
+          'group_id' => $token->getData()->group_id
+        ]);
+        $user->store_user_token($answer['refresh_token']);
         $answer['state'] = 'ready';
         return json_encode($answer);
       } else {
-        $answer['error'] = 'T_DT_N_V';
-        return json_encode($answer);//не прошли валидацию
+        $answer['error'] = 'T_DT_N_T';
+        $answer['t'] = $_POST->refresh_token;
+        $answer['rt'] = $token->getData()->rtoken;
+        return json_encode($answer);//не верный токен
       }
     } else {
-      $answer['error'] = 'DT_T_U';//токены не совпадают
-      return json_encode($answer);
+      $answer['error'] = 'T_DT_N_V';
+      return json_encode($answer);//не прошли валидацию
     }
   }
 }

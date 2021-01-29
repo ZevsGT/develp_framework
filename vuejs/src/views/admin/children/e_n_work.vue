@@ -104,7 +104,6 @@ export default {
       } else if (this.$route.name === 'Portfolio_edit') {
         await this.$api.portfolio.update_portfolio(this.form.id, this.form)
           .then(response => {
-            console.log(response.data)
             if (response.data.state === 'ready') this.visibility = true
           })
       }
@@ -140,10 +139,6 @@ export default {
 </script>
 
 <style>
-  .edit_container {
-    display: grid;
-    grid-gap: 3rem;
-  }
   .add_section {
     display: block;
     border-radius: 1rem;
@@ -196,9 +191,6 @@ export default {
   @media (min-width: 768px) {
   }
   @media (min-width: 992px) {
-    .edit_container {
-      grid-template-columns: .5fr 1fr;
-    }
   }
   @media (min-width: 1200px) {
   }

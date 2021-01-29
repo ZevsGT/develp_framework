@@ -30,7 +30,9 @@ export default {
   },
   async mounted () {
     await this.$api.services.get_list()
-      .then(response => (this.services = response.data))
+      .then(response => {
+        if (response.data[0].id) this.services = response.data
+      })
   }
 }
 </script>

@@ -27,7 +27,24 @@ export default {
       name: 'Portfolio_edit',
       meta: { title: 'Админпанель: Редактирование портфолио' },
       component: () => import('../views/admin/children/e_n_work.vue')
+    },
+    {
+      path: 'pages',
+      name: 'Pages',
+      meta: { title: 'Админпанель: Статические страницы' },
+      component: () => import('../views/admin/children/pages.vue')
+    },
+    {
+      path: 'pages/new',
+      name: 'Pages_new',
+      meta: { title: 'Админпанель: Новая статическая страница' },
+      component: () => import('../views/admin/children/e_n_page.vue')
+    },
+    {
+      path: 'pages/edit/:id',
+      name: 'Pages_edit',
+      meta: { title: 'Админпанель: Редактирвание статической страницы' },
+      component: () => import('../views/admin/children/e_n_page.vue')
     }
-
   ]
 }

@@ -32,7 +32,7 @@
               </a>
             </li>
           </router-link>
-          <router-link  to="/admin/static_page" v-slot="{ href, isExactActive }">
+          <router-link  to="/admin/pages" v-slot="{ href, isExactActive }">
             <li class="link-nav" :class="isExactActive && 'router-link-exact-active'">
               <a :href="href">
                 <i class="fas fa-paperclip"></i>
@@ -64,7 +64,6 @@
               <img :src="src_u_photo" alt="">
             </a>
             <ul class="">
-              <li><a class="" href="#">Профиль</a></li>
               <li><a class="" href="#" @click.prevent="logout">Выйти</a></li>
             </ul>
           </span>
@@ -250,6 +249,31 @@ export default {
     transform: translate(-50%, -50%);
     text-align: center;
   }
+  .add_w {
+    border-radius: 1rem;
+    min-height: 300px;
+    box-shadow: 4px 5px 15px 0px rgba(50, 38, 174, 0.2);
+    background-color: #F7F7FF;
+    border: 3px #3024A6 dashed;
+    color: #3024A6;
+    font-size: 5rem;
+    opacity: .4;
+    text-align: center;
+    transition: .2s;
+  }
+  .add_w:hover {
+    color: #3024A6;
+    opacity: .7;
+  }
+  .add_w .fas {
+    position: relative;
+    top: 50%;
+    transform: translateY(-70%);
+  }
+  .edit_container {
+    display: grid;
+    grid-gap: 3rem;
+  }
   @media (min-width: 576px) {
   }
   @media (min-width: 768px) {
@@ -291,6 +315,9 @@ export default {
     .a_l_container {
       grid-template-rows: initial;
       grid-template-columns: repeat(4, 1fr);
+    }
+    .edit_container {
+      grid-template-columns: .5fr 1fr;
     }
   }
   @media (min-width: 1200px) {

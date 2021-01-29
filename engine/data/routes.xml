@@ -36,9 +36,37 @@
         <controller>account</controller>
         <action>getNewToken</action>
     </route>
+    <route src="login/status" cache="false" cache-time="0">
+        <controller>account</controller>
+        <action>getStatus</action>
+    </route>
     <route src="new_order" cache="false" cache-time="0">
         <controller>orders</controller>
         <action>newOrder</action>
+    </route>
+    <route src="pages/new" cache="false" cache-time="0">
+        <controller>pages</controller>
+        <action>newPages</action>
+    </route>
+    <route src="admin/pages" cache="false" cache-time="0">
+        <controller>pages</controller>
+        <action>getPageList</action>
+    </route>
+    <route src="admin/pages/delete/{id:\d+}" cache="false" cache-time="0">
+        <controller>pages</controller>
+        <action>deletePage</action>
+    </route>
+    <route src="admin/pages/edit/{id:\d+}" cache="false" cache-time="0">
+        <controller>pages</controller>
+        <action>getPageEdit</action>
+    </route>
+    <route src="admin/pages/update/{id:\d+}" cache="false" cache-time="0">
+        <controller>pages</controller>
+        <action>updateDataPage</action>
+    </route>
+    <route src="ckeditor_img" cache="false" cache-time="0">
+        <controller>pages</controller>
+        <action>ckeditorImg</action>
     </route>
     <route src="admin/portfolio" cache="false" cache-time="0">
         <controller>admin</controller>

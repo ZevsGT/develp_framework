@@ -16,12 +16,20 @@ class UsersModule extends Module {
     return json_encode($workers, JSON_NUMERIC_CHECK);
   }
 
-  public function load_user_data($email){
-    $user = $this->dataBase->findOne( 'users', ' email = ? ', [ $email ]);
-    $this->user = $user;
+  public function load_user_data($email) {
+    $this->user = $this->dataBase->findOne( 'users', ' email = ? ', [ $email ]);
+  }
+
+  public function load_user($id) {
+    $this->user = $this->dataBase->load('users', $id);
   }
 
   public function getUser(){
     return $this->user;
+  }
+
+  public function store_user_token($token) {
+    $this->user->rtoken = $token;
+    return $this->dataBase->store($this->user);
   }
 }

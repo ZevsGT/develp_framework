@@ -77,7 +77,7 @@ export default {
     formData.append('count', this.count)
     await this.$api.portfolio.get_portfolio_list(formData)
       .then(response => {
-        this.works = response.data
+        if (response.data[0].id) this.works = response.data
         if (response.data.length < 8) this.btn_vis = false
         this.count += response.data.length
       })
@@ -89,7 +89,7 @@ export default {
       this.btn_loading = true
       await this.$api.portfolio.get_portfolio_list(formData)
         .then(response => {
-          this.works = this.works.concat(response.data)
+          if (response.data[0].id) this.works = this.works.concat(response.data)
           if (response.data.length < 8) this.btn_vis = false
           this.count += response.data.length
           this.btn_loading = false

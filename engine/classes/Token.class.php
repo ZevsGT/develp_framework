@@ -34,7 +34,10 @@ class Token extends Cryptography{
     $header = $token[0];
     $payload = $token[1];
     $signature = $token[2];
-    if($this->decrypt($signature) == $header . $payload) return true;
+    if($this->decrypt($signature) == $header . $payload) {
+      $this->data = json_decode(base64_decode($token[1]));
+      return true;
+    }
     else return false;
   }
 

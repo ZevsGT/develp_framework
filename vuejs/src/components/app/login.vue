@@ -41,15 +41,15 @@ export default {
     signIn () {
       this.$api.auth.signIn(this.form)
         .then(response => {
-          if (response.data.state === 'ready') {
+          if (response.data.status === 'ready') {
             let token = response.data.token.split('.', 3)
             localStorage.setItem('hash00h', token[0])
             localStorage.setItem('hash01p', token[1])
             localStorage.setItem('hash02s', token[2])
-            let disposableToken = response.data.disposable_token.split('.', 3)
-            localStorage.setItem('hash03h', disposableToken[0])
-            localStorage.setItem('hash04p', disposableToken[1])
-            localStorage.setItem('hash05s', disposableToken[2])
+            let refreshToken = response.data.refresh_token.split('.', 3)
+            localStorage.setItem('hash03h', refreshToken[0])
+            localStorage.setItem('hash04p', refreshToken[1])
+            localStorage.setItem('hash05s', refreshToken[2])
             let user = JSON.parse(window.atob(token[1]))
             this.$store.commit('setUser', user)
             this.$router.push({ name: 'Admin' })

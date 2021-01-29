@@ -6,6 +6,8 @@
 
 namespace engine\classes;
 use engine\classes\ACL;
+include $_SERVER['DOCUMENT_ROOT'].'/engine/lib/rb.php';
+use R;
 
 
 class Router {
@@ -14,12 +16,16 @@ class Router {
   private $params = [];
   private $url;
   private $config;
+  private $dataBase;
 	
 	public function __construct(){
     if (file_exists($_SERVER['DOCUMENT_ROOT'].'/engine/data/routes.xml')) {
-        // если файл существует, то подключаемся к нему
-        $routes = simplexml_load_file($_SERVER['DOCUMENT_ROOT']."/engine/data/routes.xml");
-        $this->config = include $_SERVER['DOCUMENT_ROOT'].'/engine/data/config.php';
+    // если файл существует, то подключаемся к нему
+      $routes = simplexml_load_file($_SERVER['DOCUMENT_ROOT']."/engine/data/routes.xml");
+      $this->config = include $_SERVER['DOCUMENT_ROOT'].'/engine/data/config.php';
+      $db = 'mysql:host='.$this->config['host'].';dbname='.$this->config['dbname'];
+      $this->dataBase = new R();
+      $this->dataBase->setup( $db, $this->config['dbuser'], $this->config['dbpassword']);
     } else {
         // если файл не существует, выводим ошибку
         exit('error: Файл routes не найден!');
@@ -44,11 +50,14 @@ class Router {
 	public function ACL_validate(){
 	  if($this->url == '') return true;//если главная страница
 
-		$ACL = new ACL($this->params);
-		if($ACL->start()) return true;
+		$ACL = new ACL($this->params, $this->config, $this->dataBase);
+		if($ACL->start()) {
+		  $this->params['RESPONSE'] = $ACL->getResponse();
+		  return true;
+		}
 		else{
-      header('Location: /admin/login');
-      exit;
+      //header('Location: /admin/login');
+      exit(json_encode($ACL->getResponse()));
 		}
 	}
 
@@ -83,12 +92,12 @@ class Router {
   }
 
   private function isset_data_request(){
-    $data = file_get_contents('php://input');
-    if($data != null) {
+    if(getallheaders()['Accept'] === 'application/json') {
+      $data = file_get_contents('php://input');
       $_POST = json_decode($data);
       return true;
     }
-    if(getallheaders()['Accept'] === 'application/json' || getallheaders()['Accept'] === 'multipart/form-data') return true;
+    if(getallheaders()['Content-Type'] === 'multipart/form-data') return true;
     if(count($_POST) > 0) return true;
     if(count($_GET) > 0) return true;
     return false;
@@ -106,7 +115,7 @@ class Router {
                       $action = $this->params['action'] . 'Action';
                       if (method_exists($controller, $action)) {
 
-                          $controller = new $controller($this->params);
+                          $controller = new $controller($this->params, $this->dataBase);
                           echo $controller->$action();
 
 

@@ -6,7 +6,6 @@
       :breakpoints="breakpoints"
       :space-between="30"
       navigation
-      :loop="true"
       :pagination="{ clickable: true }"
       class="theme-profile"
     >
@@ -70,7 +69,9 @@ export default {
   },
   async mounted () {
     await this.$api.users.get_worker_list()
-      .then(response => (this.users_team = response.data))
+      .then(response => {
+        if (response.data[0].id) this.users_team = response.data
+      })
   },
   methods: {
   }

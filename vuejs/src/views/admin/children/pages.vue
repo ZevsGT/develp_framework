@@ -1,21 +1,20 @@
 <template>
   <div class="a_l_container mt-3">
 
-    <router-link :to="{name: 'Portfolio_new'}" class="add_w">
+    <router-link :to="{name: 'Pages_new'}" class="add_w">
       <i class="fas fa-plus"></i>
     </router-link>
 
-    <work-kard
-      v-for="(work, index) in works" :key="index"
-      :id="work.id"
-      :index="index"
-      :title="work.title"
-      :srcImg="work.src_preview"
-      @deletePortfolio="delete_portfolio"
+    <card
+      v-for="(page, index) in pages" :key="index"
+      :id="page.id"
+      :title="page.title"
+      @deletePage="delete_page"
     />
+
   </div>
   <div v-show="btn_vis" class="text-center mt-4">
-    <a class="btn_ btn_admin" href="#" @click.prevent="load_portfolio">
+    <a class="btn_ btn_admin" href="#" @click.prevent="load_pages">
       <i v-show="btn_loading" class="fas fa-spinner"></i>
       <span v-show="!btn_loading">Показать еще</span>
     </a>
@@ -30,12 +29,12 @@
 </template>
 
 <script>
-import WorkKard from '@/components/admin/work_card.vue'
 import modal from '@/components/modal.vue'
+import card from '@/components/admin/page_card.vue'
 export default {
   components: {
-    WorkKard,
-    modal
+    modal,
+    card
   },
   data () {
     return {
@@ -43,35 +42,34 @@ export default {
       count: 0,
       btn_vis: true,
       btn_loading: false,
-      works: []
+      pages: []
     }
   },
   async mounted () {
     let formData = new FormData()
     formData.append('count', this.count)
-
-    await this.$api.portfolio.get_a_portfolio_list(formData)
+    await this.$api.pages.getPagesList(formData)
       .then(response => {
-        if (response.data[0].id) this.works = response.data
+        console.log(response.data)
+        if (response.data[0].id) this.pages = response.data
         if (response.data.length < 8) this.btn_vis = false
         this.count += response.data.length
       })
   },
   methods: {
-    async load_portfolio () {
+    async load_pages () {
+      this.btn_loading = true
       let formData = new FormData()
       formData.append('count', this.count)
-
-      this.btn_loading = true
-      await this.$api.portfolio.get_a_portfolio_list(formData)
+      await this.$api.pages.getPagesList(formData)
         .then(response => {
-          this.works = this.works.concat(response.data)
+          if (response.data[0].id) this.pages = response.data
+          this.btn_loading = false
           if (response.data.length < 8) this.btn_vis = false
           this.count += response.data.length
-          this.btn_loading = false
         })
     },
-    delete_portfolio (data) {
+    delete_page (data) {
       this.visibility = true
 
       let invisible = () => {
@@ -79,23 +77,20 @@ export default {
         this.$refs.btn_cancel.removeEventListener('click', invisible)
       }
 
-      let deletePortfolio = () => {
-        this.$api.portfolio.delete_portfolio(data.id)
+      let deletePage = () => {
+        this.$api.pages.deletePage(data.id)
           .then(response => {
             if (response.data.state === 'ready') {
-              this.$refs.btn_delete.removeEventListener('click', deletePortfolio)
-              this.works.splice(data.index, 1)
+              this.$refs.btn_delete.removeEventListener('click', deletePage)
+              this.pages.splice(data.index, 1)
               this.visibility = false
             }
           })
       }
 
-      this.$refs.btn_delete.addEventListener('click', deletePortfolio)
+      this.$refs.btn_delete.addEventListener('click', deletePage)
       this.$refs.btn_cancel.addEventListener('click', invisible)
     }
   }
 }
 </script>
-
-<style>
-</style>
