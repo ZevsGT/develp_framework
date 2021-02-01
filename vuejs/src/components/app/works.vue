@@ -73,14 +73,7 @@ export default {
     }
   },
   async mounted () {
-    let formData = new FormData()
-    formData.append('count', this.count)
-    await this.$api.portfolio.get_portfolio_list(formData)
-      .then(response => {
-        if (response.data[0].id) this.works = response.data
-        if (response.data.length < 8) this.btn_vis = false
-        this.count += response.data.length
-      })
+    this.load_portfolio()
   },
   methods: {
     async load_portfolio () {
@@ -99,8 +92,11 @@ export default {
       this.visibility = true
       this.$api.portfolio.get_data_portfolio_Id(id)
         .then(response => {
-          this.work_more_details = response.data
-          history.pushState(null, null, '/portfolio/' + id)
+          if (response.data.id) {
+            this.work_more_details = response.data
+            history.pushState(null, null, '/portfolio/' + id)
+            document.title = response.data.title
+          }
         })
     },
     close_more_details () {
@@ -111,6 +107,7 @@ export default {
         body: []
       }
       history.pushState(null, null, this.$route.fullPath)
+      document.title = this.$route.meta.title
     }
   }
 }

@@ -16,14 +16,14 @@ class PortfolioModule extends Module {
     return json_encode($portfolio, JSON_NUMERIC_CHECK);
   }
 
-  public function get_json_a_list($count) {
+  public function get_a_list($count) {
     $portfolio = $this->dataBase->getAll('
       SELECT id,title,src_preview 
       FROM portfolio
       ORDER BY id DESC LIMIT ?,8', [ (int)$count ]
     );
 
-    return json_encode($portfolio, JSON_NUMERIC_CHECK);
+    return $portfolio;
   }
 
   public function add_new_portfolio($data){
@@ -36,11 +36,11 @@ class PortfolioModule extends Module {
     return $this->dataBase->store($portfolio);
   }
 
-  public function get_json_data($id) {
+  public function get_data($id) {
     $portfolio = $this->dataBase->load( 'portfolio', $id );
     if($portfolio->body != null)
     $portfolio->body = json_decode(gzuncompress(base64_decode($portfolio->body)));
-    return json_encode($portfolio);
+    return $portfolio;
   }
 
   public function update_data($data, $id) {

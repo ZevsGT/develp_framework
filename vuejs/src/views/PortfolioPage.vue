@@ -54,8 +54,10 @@ export default {
     this.visibility = true
     await this.$api.portfolio.get_data_portfolio_Id(this.$route.params.id)
       .then(response => {
-        console.log(response.data)
-        this.portfolio = response.data
+        if (response.data.id) {
+          this.portfolio = response.data
+          document.title = response.data.title
+        }
       })
   }
 }

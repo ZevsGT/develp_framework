@@ -16,7 +16,9 @@ class AdminController extends Controller{
   //--Portfolio
   public function get_list_portfolioAction(){
     $portfolio = new PortfolioModule($this->dataBase, $this->route);
-    return $portfolio->get_json_a_list($_POST['count']);
+    $response = $this->route['RESPONSE'];
+    $response['list'] = $portfolio->get_a_list($_POST['count']);
+    return json_encode($response, JSON_NUMERIC_CHECK);
   }
 
   public function upload_img_portfolioAction() {
@@ -39,7 +41,7 @@ class AdminController extends Controller{
 
   public function get_data_portfolioAction() {
     $portfolio = new PortfolioModule($this->dataBase, $this->route);
-    return $portfolio->get_json_data($this->route['id']);
+    return json_encode($portfolio->get_data($this->route['id']), JSON_NUMERIC_CHECK);
   }
 
   public function update_portfolioAction() {

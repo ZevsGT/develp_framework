@@ -46,15 +46,7 @@ export default {
     }
   },
   async mounted () {
-    let formData = new FormData()
-    formData.append('count', this.count)
-    await this.$api.pages.getPagesList(formData)
-      .then(response => {
-        console.log(response.data)
-        if (response.data[0].id) this.pages = response.data
-        if (response.data.length < 8) this.btn_vis = false
-        this.count += response.data.length
-      })
+    this.load_pages()
   },
   methods: {
     async load_pages () {
@@ -63,10 +55,21 @@ export default {
       formData.append('count', this.count)
       await this.$api.pages.getPagesList(formData)
         .then(response => {
-          if (response.data[0].id) this.pages = response.data
-          this.btn_loading = false
-          if (response.data.length < 8) this.btn_vis = false
-          this.count += response.data.length
+          if (response.data.status === 'ready') {
+            if (response.data.list[0].id) this.pages = this.pages.concat(response.data.list)
+            if (response.data.list.length < 8) this.btn_vis = false
+            this.count += response.data.list.length
+          } else if (response.data.status === 'error' && (response.data.message === 'TIM_L' || response.data.message === 'T_N_V')) {
+            this.$api.users.refresh_token('admin/pages')
+              .then(response => {
+                if (response.data.status === 'ready') {
+                  this.$api.token.setToken(response.data.token, response.data.refresh_token)
+                  if (response.data.list[0].id) this.pages = this.pages.concat(response.data.list)
+                  if (response.data.list.length < 8) this.btn_vis = false
+                  this.count += response.data.list.length
+                }
+              })
+          }
         })
     },
     delete_page (data) {

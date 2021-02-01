@@ -47,15 +47,7 @@ export default {
     }
   },
   async mounted () {
-    let formData = new FormData()
-    formData.append('count', this.count)
-
-    await this.$api.portfolio.get_a_portfolio_list(formData)
-      .then(response => {
-        if (response.data[0].id) this.works = response.data
-        if (response.data.length < 8) this.btn_vis = false
-        this.count += response.data.length
-      })
+    this.load_portfolio()
   },
   methods: {
     async load_portfolio () {
@@ -65,10 +57,22 @@ export default {
       this.btn_loading = true
       await this.$api.portfolio.get_a_portfolio_list(formData)
         .then(response => {
-          this.works = this.works.concat(response.data)
-          if (response.data.length < 8) this.btn_vis = false
-          this.count += response.data.length
-          this.btn_loading = false
+          if (response.data.status === 'ready') {
+            if (response.data.list[0].id) this.works = this.works.concat(response.data.list)
+            if (response.data.list.length < 8) this.btn_vis = false
+            this.count += response.data.list.length
+          } else if (response.data.status === 'error' && (response.data.message === 'TIM_L' || response.data.message === 'T_N_V')) {
+            this.$api.users.refresh_token('admin/portfolio')
+              .then(response => {
+                if (response.data.status === 'ready') {
+                  this.$api.token.setToken(response.data.token, response.data.refresh_token)
+                  if (response.data.list[0].id) this.works = this.works.concat(response.data.list)
+                  if (response.data.list.length < 8) this.btn_vis = false
+                  this.count += response.data.list.length
+                  this.btn_loading = false
+                }
+              })
+          }
         })
     },
     delete_portfolio (data) {

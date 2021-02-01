@@ -21,7 +21,7 @@
     <div class="modal_confirm" @click.stop>
       <div class="mb-4">Изменения сохранены!</div>
       <button class="btn_ btn_secondary" @click="visibility = !visibility">Продолжить</button>
-      <button class="btn_ btn_admin ml-3" @click="redirect">К работам</button>
+      <button class="btn_ btn_admin ml-3" @click="redirect">К страницам</button>
     </div>
   </modal>
 </template>

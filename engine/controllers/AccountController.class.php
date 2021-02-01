@@ -49,7 +49,32 @@ class AccountController extends Controller{
 	}
 
 	public function signUpAction(){
-        return "страница регистрации";
+      $user = new UsersModule($this->dataBase);
+      $user_id = $user->create_new_user($_POST->name, $_POST->surname, $_POST->email, $_POST->password);
+      $user->load_user($user_id);
+      $answer['user'] = $user->getUser();
+      if($user->getUser()) {
+        $token = new Token($this->config['key'], 'sha256', 'JWT');
+        $answer['token'] = $token->create_token([
+          'id' => $user->getUser()->id,
+          'name' => $user->getUser()->name . ' ' . $user->getUser()->surname,
+          'src_photo' => $user->getUser()->src_photo,
+          'group_id' => $user->getUser()->group_id
+        ], 900);
+        $answer['refresh_token'] = $token->create_token([
+          'id' => $user->getUser()->id,
+          'name' => $user->getUser()->name . ' ' . $user->getUser()->surname,
+          'src_photo' => $user->getUser()->src_photo,
+          'group_id' => $user->getUser()->group_id
+        ]);
+        $user->store_user_token($answer['refresh_token']);
+        $answer['status'] = 'ready';
+        return json_encode($answer);
+      } else {
+        $answer['status'] = 'error';
+        $answer['message'] = 'No_user';
+        return json_encode($answer);
+      }
 	}
 
 	public function validateTokenAction() {

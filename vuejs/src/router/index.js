@@ -22,6 +22,11 @@ const routes = [
     component: () => import('../views/PortfolioPage.vue')
   },
   {
+    path: '/page/:name',
+    name: 'PageP',
+    component: () => import('../views/Page.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: '404',
     component: () => import('../views/404.vue')
@@ -36,6 +41,8 @@ const router = createRouter({
       return {
         el: to.hash
       }
+    } else {
+      return { x: 0, y: 0 }
     }
   }
 })
@@ -50,21 +57,14 @@ router.beforeEach((to, from, next) => {
         .then(response => {
           if (response.data.status === 'ready') next()
           else if (response.data.status === 'error' && (response.data.message === 'TIM_L' || response.data.message === 'T_N_V')) {
-            $api.users.refresh_token()
+            $api.users.refresh_token('login/status')
               .then(response => {
                 if (response.data.status === 'ready') {
-                  let token = response.data.token.split('.', 3)
-                  localStorage.setItem('hash00h', token[0])
-                  localStorage.setItem('hash01p', token[1])
-                  localStorage.setItem('hash02s', token[2])
-                  let refreshToken = response.data.refresh_token.split('.', 3)
-                  localStorage.setItem('hash03h', refreshToken[0])
-                  localStorage.setItem('hash04p', refreshToken[1])
-                  localStorage.setItem('hash05s', refreshToken[2])
+                  $api.token.setToken(response.data.token, response.data.refresh_token)
                   next()
                 } else next({ name: 'Login' })
               })
-          }
+          } else next({ name: 'Login' })
         })
     }
   } else next()

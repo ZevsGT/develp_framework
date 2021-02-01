@@ -12,14 +12,20 @@ class PagesModule extends Module {
     return $this->dataBase->store($pages);
   }
 
-  public function get_json_pagelist($count) {
+  public function get_pagelist($count) {
     $pages = $this->dataBase->getAll('
       SELECT id,title 
       FROM pages
       ORDER BY id DESC LIMIT ?,8', [ (int)$count ]
     );
 
-    return json_encode($pages, JSON_NUMERIC_CHECK);
+    return $pages;
+  }
+
+  public function get_json_page($name){
+    $page = $this->dataBase->findOne( 'pages', ' url_name = ? ', [ $name ]);
+    if($page->data != null) $page->data = json_decode(gzuncompress(base64_decode($page->data)));
+    return json_encode($page);
   }
 
   public function get_json_data_page($id) {

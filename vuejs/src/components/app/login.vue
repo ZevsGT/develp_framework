@@ -42,15 +42,8 @@ export default {
       this.$api.auth.signIn(this.form)
         .then(response => {
           if (response.data.status === 'ready') {
-            let token = response.data.token.split('.', 3)
-            localStorage.setItem('hash00h', token[0])
-            localStorage.setItem('hash01p', token[1])
-            localStorage.setItem('hash02s', token[2])
-            let refreshToken = response.data.refresh_token.split('.', 3)
-            localStorage.setItem('hash03h', refreshToken[0])
-            localStorage.setItem('hash04p', refreshToken[1])
-            localStorage.setItem('hash05s', refreshToken[2])
-            let user = JSON.parse(window.atob(token[1]))
+            this.$api.token.setToken(response.data.token, response.data.refresh_token)
+            let user = JSON.parse(window.atob(localStorage.getItem('hash01p')))
             this.$store.commit('setUser', user)
             this.$router.push({ name: 'Admin' })
           }

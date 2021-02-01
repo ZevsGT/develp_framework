@@ -45,6 +45,12 @@ export default {
       name: 'Pages_edit',
       meta: { title: 'Админпанель: Редактирвание статической страницы' },
       component: () => import('../views/admin/children/e_n_page.vue')
+    },
+    {
+      path: 'orders',
+      name: 'Orders',
+      meta: { title: 'Админпанель: Заказы' },
+      component: () => import('../views/admin/children/orders.vue')
     }
   ]
 }

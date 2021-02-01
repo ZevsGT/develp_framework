@@ -86,11 +86,11 @@ export default {
       }
     }
   },
-  mounted () {
+  async mounted () {
     if (this.$route.name === 'Portfolio_edit') {
       this.$api.portfolio.get_data_portfolio(this.$route.params.id)
         .then(response => {
-          if (response.data.id === this.$route.params.id) this.form = response.data
+          if (response.data.id) this.form = response.data
         })
     }
   },

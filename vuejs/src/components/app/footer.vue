@@ -24,7 +24,7 @@
           </li>
         </ul>
       </div>
-
+      <!--
       <div class="foo-menu">
         <h5>РАБОТА С ПОРТАЛОМ</h5>
         <ul>
@@ -36,19 +36,19 @@
           </li>
         </ul>
       </div>
-
+      -->
       <div class="foo-menu">
         <h5>ИНФОРМАЦИЯ</h5>
         <ul>
           <li>
-            <a href="rules.html">Условия Использования</a>
+            <router-link to="/page/rules">Условия Использования</router-link>
           </li>
           <li>
-            <a href="privacy.html">Политика Конфиденциальности</a>
+            <router-link to="/page/privacy">Политика Конфиденциальности</router-link>
           </li>
         </ul>
       </div>
-
+      <!--
       <div class="foo-menu">
         <h5>ПОМОЩЬ</h5>
         <ul>
@@ -60,7 +60,7 @@
           </li>
         </ul>
       </div>
-
+      -->
     </div>
 
     <hr>

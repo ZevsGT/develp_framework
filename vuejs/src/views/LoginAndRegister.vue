@@ -24,8 +24,7 @@
         <div class="content_l">
           <h3>Еще не зарегистрированы?</h3>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-            ex ratione. Aliquid!
+            Заведите свой личный кабинет develp, это займет всего пару минут.
           </p>
           <button class="l_btn transparent" id="sign-up-btn" @click.prevent="switch_c('sign-up-mode')">
             Регистрация
@@ -37,8 +36,7 @@
         <div class="content_l">
           <h3>Уже зарегистрированы?</h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-            laboriosam ad deleniti.
+            Авторизуйтесь для входа в личный кабинет develp.
           </p>
           <button class="l_btn transparent" id="sign-in-btn" @click.prevent="switch_c('')">
             Авторизация

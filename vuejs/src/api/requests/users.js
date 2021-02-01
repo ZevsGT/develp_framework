@@ -1,4 +1,4 @@
-export default function (instance) {
+export default function (instance, token) {
   return {
     get_worker_list () {
       return instance.get('workers')
@@ -9,19 +9,11 @@ export default function (instance) {
     get_new_token (payload) {
       return instance.post('login/new_token', payload)
     },
-    get_status (HToken) {
-      return instance.get('login/status', {
-        headers: {
-          'X-Access-Token': localStorage.getItem('hash00h') + '.' + localStorage.getItem('hash01p') + '.' + localStorage.getItem('hash02s')
-        }
-      })
+    get_status () {
+      return instance.get('login/status', token.Access())
     },
-    refresh_token (HToken) {
-      return instance.get('login/status', {
-        headers: {
-          'X-Refresh-Token': localStorage.getItem('hash03h') + '.' + localStorage.getItem('hash04p') + '.' + localStorage.getItem('hash05s')
-        }
-      })
+    refresh_token (path) {
+      return instance.get(path, token.Refresh())
     }
   }
 }

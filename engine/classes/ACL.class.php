@@ -42,7 +42,8 @@ class ACL {
             }
         }
     }
-
+    $this->response['status'] = 'error';
+    $this->response['message'] = 'У вас недостаточно прав';
 		return false;
 	}
 

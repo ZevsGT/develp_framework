@@ -17,20 +17,15 @@
         <controller name="orders">
             <action>newOrder</action>
         </controller>
+        <controller name="admin">
+            <action>upload_img_portfolio</action>
+        </controller>
         <controller name="pages">
             <action>ckeditorImg</action>
             <action>newPages</action>
             <action>deletePage</action>
             <action>getPageEdit</action>
-            <action>updateDataPage</action>
-        </controller>
-        <controller name="admin">
-            <action>get_list_portfolio</action>
-            <action>upload_img_portfolio</action>
-            <action>add_new_portfolio</action>
-            <action>get_data_portfolio</action>
-            <action>update_portfolio</action>
-            <action>delete_portfolio</action>
+            <action>getPage</action>
         </controller>
     </group>
 

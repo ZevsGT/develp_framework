@@ -18,7 +18,9 @@ class PagesController extends Controller {
 
   public function getPageListAction() {
     $pages = new PagesModule($this->dataBase);
-    return $pages->get_json_pagelist($_POST['count']);
+    $response = $this->route['RESPONSE'];
+    $response['list'] = $pages->get_pagelist($_POST['count']);
+    return json_encode($response, JSON_NUMERIC_CHECK);
   }
 
   public function deletePageAction(){
@@ -32,6 +34,11 @@ class PagesController extends Controller {
   public function getPageEditAction() {
     $pages = new PagesModule($this->dataBase);
     return $pages->get_json_data_page($this->route['id']);
+  }
+
+  public function getPageAction() {
+    $pages = new PagesModule($this->dataBase);
+    return $pages->get_json_page($this->route['name']);
   }
 
   public function updateDataPageAction() {

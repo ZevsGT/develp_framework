@@ -20,6 +20,20 @@ class UsersModule extends Module {
     $this->user = $this->dataBase->findOne( 'users', ' email = ? ', [ $email ]);
   }
 
+  public function create_new_user($name, $surname, $email, $password) {
+    $new_user = $this->dataBase->dispense( 'users' );
+    $new_user->name = $name;
+    $new_user->surname = $surname;
+    $new_user->email = $email;
+    $new_user->password = password_hash($password, PASSWORD_DEFAULT);
+    $user_group = $this->dataBase->findOne( 'user_group', ' name = ? ', [ 'Заказчик' ]);
+    $new_user->group = $user_group;
+    $new_user->src_photo = '/img/no_user_photo.jpg';
+    $new_user->status = 0;
+    $new_user->worker = 0;
+    return $this->dataBase->store($new_user);
+  }
+
   public function load_user($id) {
     $this->user = $this->dataBase->load('users', $id);
   }

@@ -60,6 +60,10 @@
         <controller>pages</controller>
         <action>getPageEdit</action>
     </route>
+    <route src="page/{name:\w+}" cache="false" cache-time="0">
+        <controller>pages</controller>
+        <action>getPage</action>
+    </route>
     <route src="admin/pages/update/{id:\d+}" cache="false" cache-time="0">
         <controller>pages</controller>
         <action>updateDataPage</action>
