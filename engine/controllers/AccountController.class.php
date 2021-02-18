@@ -12,7 +12,8 @@ use engine\modules\UsersModule;
 class AccountController extends Controller{
 
   public function getStatusAction() {
-    return json_encode($this->route['RESPONSE']);
+    return $this->response_data_JSON(true);
+    return json_encode($this->route['ACL_RESPONSE']);
   }
 	
 	public function signInAction(){

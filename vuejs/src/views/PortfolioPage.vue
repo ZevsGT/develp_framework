@@ -56,7 +56,8 @@ export default {
       .then(response => {
         if (response.data.id) {
           this.portfolio = response.data
-          document.title = response.data.title
+          document.title = response.data.seo_title
+          document.querySelector('meta[name="description"]').content = response.data.seo_description
         }
       })
   }

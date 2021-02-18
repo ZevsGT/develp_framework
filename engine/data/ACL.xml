@@ -16,9 +16,22 @@
         </controller>
         <controller name="orders">
             <action>newOrder</action>
+            <action>getOrdersList</action>
+            <action>getService</action>
         </controller>
         <controller name="admin">
             <action>upload_img_portfolio</action>
+            <action>delete_portfolio</action>
+            <action>add_new_portfolio</action>
+            <action>update_portfolio</action>
+            <action>get_data_portfolio</action>
+            <action>get_list_services</action>
+            <action>new_services</action>
+            <action>get_data_edit_service</action>
+            <action>store_data_service</action>
+            <action>upload_img_service</action>
+            <action>delete_service</action>
+            <action>delete_sub_service</action>
         </controller>
         <controller name="pages">
             <action>ckeditorImg</action>
@@ -26,6 +39,7 @@
             <action>deletePage</action>
             <action>getPageEdit</action>
             <action>getPage</action>
+            <action>updateDataPage</action>
         </controller>
     </group>
 
@@ -39,7 +53,7 @@
             <action>add_new_portfolio</action>
             <action>get_data_portfolio</action>
             <action>update_portfolio</action>
-            <action>delete_portfolio</action>
+            <action>cache</action>
         </controller>
         <controller name="pages">
             <action>ckeditorImg</action>

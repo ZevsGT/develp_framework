@@ -27,6 +27,11 @@
           <label for="Color" class="form-label">Цвет подложки в превью</label>
           <input type="color" class="form-control form-control-color" id="Color" v-model="form.color">
         </div>
+        <seo
+          :fTitle="form.seo_title"
+          :fdescription="form.seo_description"
+          @onSeoSend="seoData"
+        />
         <button type="submit" class="btn btn_admin" @click.prevent="send">Готово</button>
       </form>
     </div>
@@ -65,11 +70,13 @@
 <script>
 import ImageSection from '@/components/work/w_image_section.vue'
 import modal from '@/components/modal.vue'
+import seo from '@/components/admin/seo.vue'
 
 export default {
   components: {
     ImageSection,
-    modal
+    modal,
+    seo
   },
   data () {
     return {
@@ -82,6 +89,8 @@ export default {
         description: '',
         color: '#ffffff',
         src_preview: null,
+        seo_title: null,
+        seo_description: null,
         body: []
       }
     }
@@ -90,6 +99,7 @@ export default {
     if (this.$route.name === 'Portfolio_edit') {
       this.$api.portfolio.get_data_portfolio(this.$route.params.id)
         .then(response => {
+          console.log(response.data)
           if (response.data.id) this.form = response.data
         })
     }
@@ -116,7 +126,7 @@ export default {
         formData
       )
         .then(response => {
-          if (response.data.state === 'ready') this.form.src_preview = 'http://framework.ru/' + response.data.src_img
+          if (response.data.state === 'ready') this.form.src_preview = '/' + response.data.src_img
           else console.log(response.data)
         })
     },
@@ -127,6 +137,10 @@ export default {
           srcImg: ''
         }
       })
+    },
+    seoData (data) {
+      this.form.seo_title = data.title
+      this.form.seo_description = data.description
     },
     delete_section (index) {
       this.form.body.splice(index, 1)
@@ -174,18 +188,6 @@ export default {
     margin-left: 1rem;
     opacity: .5;
   }
-  .img_preview {
-    width: 350px;
-    height: 350px;
-    overflow: hidden;
-    border-radius: 1rem;
-  }
-  .img_preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
   @media (min-width: 576px) {
   }
   @media (min-width: 768px) {

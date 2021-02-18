@@ -4,6 +4,9 @@ module.exports = {
     msTileColor: '#25272b',
     manifestOptions: {
       background_color: '#25272b'
-    }
-  }
+    },
+    name: 'Develp - создание и разработка сайтов'
+  },
+
+  assetsDir: 'templates/spa/'
 }

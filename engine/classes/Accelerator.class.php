@@ -7,8 +7,8 @@ class Accelerator {
     private $cache_path;
     private $cache_contents;
 
-    public function __construct($cache_path){
-        $this->cache_path = $_SERVER['DOCUMENT_ROOT'].'/'.$cache_path.'/'.md5($_SERVER['REQUEST_URI']).'.php';
+    public function __construct($cache_path, $file_name, $file_extension = '.php'){
+        $this->cache_path = $_SERVER['DOCUMENT_ROOT'].'/'.$cache_path.'/'.md5($file_name).$file_extension;
     }
 
     public function check_cache_exist($cache_on, $cache_time = 0){

@@ -80,7 +80,7 @@ export default {
       let formData = new FormData()
       formData.append('count', this.count)
       this.btn_loading = true
-      await this.$api.portfolio.get_portfolio_list(formData)
+      await this.$api.portfolio.get_portfolio_list({ count: this.count })
         .then(response => {
           if (response.data[0].id) this.works = this.works.concat(response.data)
           if (response.data.length < 8) this.btn_vis = false
@@ -95,7 +95,8 @@ export default {
           if (response.data.id) {
             this.work_more_details = response.data
             history.pushState(null, null, '/portfolio/' + id)
-            document.title = response.data.title
+            document.title = response.data.seo_title
+            document.querySelector('meta[name="description"]').content = response.data.seo_description
           }
         })
     },
@@ -108,6 +109,7 @@ export default {
       }
       history.pushState(null, null, this.$route.fullPath)
       document.title = this.$route.meta.title
+      document.querySelector('meta[name="description"]').content = this.$route.meta.description
     }
   }
 }
@@ -127,6 +129,7 @@ export default {
   .modal-portfolio-content {
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+    overflow: hidden;
   }
   .modal-portfolio-content {
     background-color: #e2e2ea;

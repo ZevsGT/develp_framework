@@ -2,13 +2,12 @@
   <div class="profile_card" :style="imgBg">
     <div class="profile_card_inside">
       <h5>{{name}}</h5>
-      <span class="status">{{status ? 'Online' : 'Offline'}}</span>
       <img :src="srcImg" alt="">
       <span class="role mt-2">{{role}}</span>
       <div class="p_card_nav">
-        <a href="#" class="fas fa-comment-alt" title="Чат"></a>
-        <a v-if="linkVk != null" :href="linkVk" class="fab fa-vk" title="Страница ВКонтакте"></a>
-        <a href="#" class="fas fa-user-alt" title="Профиль на сайте"></a>
+        <!-- <a href="#" class="fas fa-comment-alt" title="Чат"></a> -->
+        <a v-if="linkVk != null" :href="linkVk" class="fab fa-vk" style="grid-column: span 3" title="Страница ВКонтакте"></a>
+        <!-- <a href="#" class="fas fa-user-alt" title="Профиль на сайте"></a> -->
       </div>
     </div>
   </div>

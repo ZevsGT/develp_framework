@@ -8,6 +8,8 @@ class PagesModule extends Module {
     $pages = $this->dataBase->dispense( 'pages' );
     $pages->title = $data->title;
     $pages->url_name = $data->url_name;
+    $pages->seo_title = $data->seo_title;
+    $pages->seo_description = $data->seo_description;
     $pages->data = base64_encode(gzcompress(json_encode($data->data), 9));
     return $this->dataBase->store($pages);
   }
@@ -28,16 +30,18 @@ class PagesModule extends Module {
     return json_encode($page);
   }
 
-  public function get_json_data_page($id) {
+  public function get_data_page($id) {
     $pages = $this->dataBase->load('pages', $id);
     if($pages->data != null) $pages->data = json_decode(gzuncompress(base64_decode($pages->data)));
-    return json_encode($pages);
+    return $pages;
   }
 
   public function update_data($id, $data) {
     $pages = $this->dataBase->load('pages', $id);
     if($pages->title != $data->title) $pages->title = $data->title;
     if($pages->url_name != $data->url_name) $pages->url_name = $data->url_name;
+    if($pages->seo_title != $data->seo_title) $pages->seo_title = $data->seo_title;
+    if($pages->seo_description != $data->seo_description) $pages->seo_description = $data->seo_description;
     $data->data = base64_encode(gzcompress(json_encode($data->data), 9));
     if($pages->data != $data->data) $pages->data = $data->data;
     return $this->dataBase->store($pages);

@@ -9,7 +9,7 @@
         :srcImg="service.bg_img"
         :color="service.bg_color"
         :title="service.title"
-        :description="service.description"
+        :description="service.short_description"
       />
 
     </div>

@@ -22,4 +22,14 @@ class Controller{
     $this->dataBase = $dataBase;
 	}
 
+	protected function response_data_JSON($status, $data = null, $status_code = null, $message = null){
+	  if($status) $response['status'] = 'ready';
+	  else $response['status'] = 'error';
+    if($message) $response['message'] = $message;
+    if($data) $response['data'] = $data;
+    if($status_code) $response['status_code'] = $status_code;
+    if(isset($this->route['ACL_RESPONSE'])) $response['ACL_RESPONSE'] = $this->route['ACL_RESPONSE'];
+    return json_encode($response, JSON_NUMERIC_CHECK);
+  }
+
 }

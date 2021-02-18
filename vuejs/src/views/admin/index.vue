@@ -39,6 +39,13 @@
               </a>
             </li>
           </router-link>
+          <router-link  to="/admin/services" v-slot="{ href, isExactActive }">
+            <li class="link-nav" :class="isExactActive && 'router-link-exact-active'">
+              <a :href="href">
+                <i class="fas fa-dolly"></i>
+              </a>
+            </li>
+          </router-link>
         </ul>
       </div>
     </nav>
@@ -249,6 +256,12 @@ export default {
     transform: translate(-50%, -50%);
     text-align: center;
   }
+  .modal_edit {
+    background-color: #fff;
+    padding: 1rem 3rem;
+    border-radius: 1rem;
+    text-align: center;
+  }
   .add_w {
     border-radius: 1rem;
     min-height: 300px;
@@ -273,6 +286,33 @@ export default {
   .edit_container {
     display: grid;
     grid-gap: 3rem;
+  }
+  .btn_tools {
+    background-color: initial;
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    transition: .2s;
+    margin-left: .7rem;
+  }
+  .btn_tools:hover {
+    color: rgba(256,256,256,.7);
+  }
+  .tools {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  .img_preview {
+    width: 350px;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 1rem;
+  }
+  .img_preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   @media (min-width: 576px) {
   }

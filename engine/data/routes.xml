@@ -44,6 +44,10 @@
         <controller>orders</controller>
         <action>newOrder</action>
     </route>
+    <route src="admin/orders" cache="false" cache-time="0">
+        <controller>orders</controller>
+        <action>getOrdersList</action>
+    </route>
     <route src="pages/new" cache="false" cache-time="0">
         <controller>pages</controller>
         <action>newPages</action>
@@ -67,6 +71,42 @@
     <route src="admin/pages/update/{id:\d+}" cache="false" cache-time="0">
         <controller>pages</controller>
         <action>updateDataPage</action>
+    </route>
+    <route src="service/{id:\d+}" cache="false" cache-time="0">
+        <controller>orders</controller>
+        <action>getService</action>
+    </route>
+    <route src="admin/services" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>get_list_services</action>
+    </route>
+    <route src="admin/services/new" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>new_services</action>
+    </route>
+    <route src="admin/service/edit/{id:\d+}" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>get_data_edit_service</action>
+    </route>
+    <route src="admin/service/edit" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>store_data_service</action>
+    </route>
+    <route src="admin/service/upload_img" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>upload_img_service</action>
+    </route>
+    <route src="admin/service/delete" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>delete_service</action>
+    </route>
+    <route src="admin/service/sub/delete" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>delete_sub_service</action>
+    </route>
+    <route src="admin/cache" cache="false" cache-time="0">
+        <controller>admin</controller>
+        <action>cache</action>
     </route>
     <route src="ckeditor_img" cache="false" cache-time="0">
         <controller>pages</controller>

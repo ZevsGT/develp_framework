@@ -25,11 +25,15 @@ export default {
     title: {
       type: String,
       required: true
+    },
+    url: {
+      type: String,
+      required: true
     }
   },
   computed: {
     href () {
-      return 'pages/edit/' + this.id
+      return this.url + this.id
     }
   },
   methods: {
@@ -53,6 +57,7 @@ export default {
     background-size: cover;
     transition: 1s;
     height: 100%;
+    min-height: 300px;
     position: relative;
   }
 
@@ -70,22 +75,5 @@ export default {
   .pages_card .tittle span{
     display: block;
     margin: auto 0;
-  }
-
-  .tools {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-  }
-  .btn_tools {
-    background-color: initial;
-    border: none;
-    color: #fff;
-    font-size: 1.1rem;
-    transition: .2s;
-    margin-left: .7rem;
-  }
-  .btn_tools:hover {
-    color: rgba(256,256,256,.7);
   }
 </style>

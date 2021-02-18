@@ -1,6 +1,6 @@
 <template>
   <section class="w_s_itm">
-    <img class="w-100" :src="Sdata.srcImg" alt="">
+    <img class="w-100" :src="Sdata.srcImg" alt="Пример разработки сайта">
     <div v-if="visibleTools" class="tools_load_img">
       <input type="file" class="form-file-input" :id="get_id" @change="load_img">
       <label class="form-file-label" :for="get_id">
@@ -43,7 +43,7 @@ export default {
         formData
       )
         .then(response => {
-          if (response.data.state === 'ready') data.srcImg = 'http://framework.ru/' + response.data.src_img
+          if (response.data.state === 'ready') data.srcImg = '/' + response.data.src_img
           else console.log(response.data)
         })
     }

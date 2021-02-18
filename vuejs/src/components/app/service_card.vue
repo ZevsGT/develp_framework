@@ -5,7 +5,7 @@
     </div>
     <div class="services_description" :style="getBGcolor">
       <span>{{description}}</span>
-      <!--<a class="btn_ btn_light mt-3" href="#">Подробнее</a>-->
+      <router-link class="btn_ btn_light mt-3" :to="href">Подробнее</router-link>
     </div>
   </div>
 </template>
@@ -31,6 +31,11 @@ export default {
     },
     srcImg: String
   },
+  data () {
+    return {
+      href: '/service/' + this.id
+    }
+  },
   computed: {
     getBGcolor () {
       return {
@@ -39,7 +44,7 @@ export default {
     },
     getBGImg () {
       return {
-        'background-image': 'url(' + this.srcImg + ')'
+        'background-image': 'url(/' + this.srcImg + ')'
       }
     }
   }

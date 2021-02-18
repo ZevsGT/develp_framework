@@ -1,7 +1,7 @@
 <template>
   <div class="w__card">
     <img :src="srcImg" alt="">
-    <div class="w__tools">
+    <div class="tools">
       <router-link :to="href" class="btn_tools">
         <i class="fas fa-edit"></i>
       </router-link>
@@ -61,22 +61,6 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  .w__tools {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-  }
-  .btn_tools {
-    background-color: initial;
-    border: none;
-    color: #fff;
-    font-size: 1.1rem;
-    transition: .2s;
-    margin-left: .7rem;
-  }
-  .btn_tools:hover {
-    color: rgba(256,256,256,.7);
   }
   .w__title{
     position: absolute;

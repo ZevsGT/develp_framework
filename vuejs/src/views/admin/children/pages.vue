@@ -9,6 +9,7 @@
       v-for="(page, index) in pages" :key="index"
       :id="page.id"
       :title="page.title"
+      :url="'pages/edit/'"
       @deletePage="delete_page"
     />
 
@@ -51,24 +52,13 @@ export default {
   methods: {
     async load_pages () {
       this.btn_loading = true
-      let formData = new FormData()
-      formData.append('count', this.count)
-      await this.$api.pages.getPagesList(formData)
+      await this.$api.pages.getPagesList({ count: this.count })
         .then(response => {
           if (response.data.status === 'ready') {
-            if (response.data.list[0].id) this.pages = this.pages.concat(response.data.list)
-            if (response.data.list.length < 8) this.btn_vis = false
-            this.count += response.data.list.length
-          } else if (response.data.status === 'error' && (response.data.message === 'TIM_L' || response.data.message === 'T_N_V')) {
-            this.$api.users.refresh_token('admin/pages')
-              .then(response => {
-                if (response.data.status === 'ready') {
-                  this.$api.token.setToken(response.data.token, response.data.refresh_token)
-                  if (response.data.list[0].id) this.pages = this.pages.concat(response.data.list)
-                  if (response.data.list.length < 8) this.btn_vis = false
-                  this.count += response.data.list.length
-                }
-              })
+            if (response.data.data[0].id) this.pages = this.pages.concat(response.data.data)
+            if (response.data.data.length < 8) this.btn_vis = false
+            this.btn_loading = false
+            this.count += response.data.data.length
           }
         })
     },
@@ -87,6 +77,7 @@ export default {
               this.$refs.btn_delete.removeEventListener('click', deletePage)
               this.pages.splice(data.index, 1)
               this.visibility = false
+              this.count--
             }
           })
       }

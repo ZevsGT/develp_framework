@@ -12,9 +12,9 @@
         <li>
           <router-link to="/#services">Услуги</router-link>
         </li>
-        <li>
+        <!--<li>
           <router-link to="/#command">Наша команда</router-link>
-        </li>
+        </li>-->
         <li>
           <router-link to="/#portfolio">Портфолио</router-link>
         </li>

@@ -8,7 +8,7 @@ export default {
       path: '',
       name: 'Admin',
       meta: { title: 'Админпанель' },
-      component: () => import('../views/admin/children/works.vue')
+      component: () => import('../views/admin/children/dashboard.vue')
     },
     {
       path: 'portfolio',
@@ -45,6 +45,24 @@ export default {
       name: 'Pages_edit',
       meta: { title: 'Админпанель: Редактирвание статической страницы' },
       component: () => import('../views/admin/children/e_n_page.vue')
+    },
+    {
+      path: 'services',
+      name: 'Services',
+      meta: { title: 'Админпанель: Услуги' },
+      component: () => import('../views/admin/children/services.vue')
+    },
+    {
+      path: 'services/new',
+      name: 'Services_new',
+      meta: { title: 'Админпанель: Новая услуга' },
+      component: () => import('../views/admin/children/e_n_service.vue')
+    },
+    {
+      path: 'service/edit/:id',
+      name: 'Services_edit',
+      meta: { title: 'Админпанель: Редактирование услуги' },
+      component: () => import('../views/admin/children/e_n_service.vue')
     },
     {
       path: 'orders',

@@ -46,32 +46,19 @@ export default {
       works: []
     }
   },
-  async mounted () {
+  mounted () {
     this.load_portfolio()
   },
   methods: {
     async load_portfolio () {
-      let formData = new FormData()
-      formData.append('count', this.count)
-
       this.btn_loading = true
-      await this.$api.portfolio.get_a_portfolio_list(formData)
+      await this.$api.portfolio.get_a_portfolio_list({ count: this.count })
         .then(response => {
           if (response.data.status === 'ready') {
             if (response.data.list[0].id) this.works = this.works.concat(response.data.list)
             if (response.data.list.length < 8) this.btn_vis = false
             this.count += response.data.list.length
-          } else if (response.data.status === 'error' && (response.data.message === 'TIM_L' || response.data.message === 'T_N_V')) {
-            this.$api.users.refresh_token('admin/portfolio')
-              .then(response => {
-                if (response.data.status === 'ready') {
-                  this.$api.token.setToken(response.data.token, response.data.refresh_token)
-                  if (response.data.list[0].id) this.works = this.works.concat(response.data.list)
-                  if (response.data.list.length < 8) this.btn_vis = false
-                  this.count += response.data.list.length
-                  this.btn_loading = false
-                }
-              })
+            this.btn_loading = false
           }
         })
     },
@@ -90,7 +77,8 @@ export default {
               this.$refs.btn_delete.removeEventListener('click', deletePortfolio)
               this.works.splice(data.index, 1)
               this.visibility = false
-            }
+              this.count--
+            } else console.log(response.data)
           })
       }
 

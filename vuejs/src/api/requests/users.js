@@ -10,7 +10,7 @@ export default function (instance, token) {
       return instance.post('login/new_token', payload)
     },
     get_status () {
-      return instance.get('login/status', token.Access())
+      return instance.get('login/status')
     },
     refresh_token (path) {
       return instance.get(path, token.Refresh())

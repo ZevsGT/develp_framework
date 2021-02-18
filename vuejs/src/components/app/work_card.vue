@@ -1,7 +1,7 @@
 <template>
   <div class="card_works" :class="getClasss" :style="getBgColor">
     <div class="img_box">
-      <img :src="srcImg" alt="">
+      <img :src="srcImg" :alt="'Preview ' + title">
       <i class="more"></i>
     </div>
     <div class="tittle_box" :style="getBgColor">
@@ -41,7 +41,7 @@ export default {
   data () {
     return {
       form: ['', 'card_form_1', 'card_form_2'],
-      probability: [25, 4, 2],
+      probability: [25, 0, 0],
       href: '/portfolio/' + this.id
     }
   },

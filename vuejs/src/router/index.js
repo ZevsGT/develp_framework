@@ -8,7 +8,10 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: { title: 'Главная' }
+    meta: {
+      title: 'Develp - создание и разработка сайтов',
+      description: 'Develp - команда разработчиков. Качественное создание и продвижение сайтов. Отрисовка дизайна для вашего бизнеса. Логотипы, шрифты. Оплата после выполнения работы. Постоянная техподдержка клиентов.'
+    }
   },
   {
     path: '/login',
@@ -25,6 +28,23 @@ const routes = [
     path: '/page/:name',
     name: 'PageP',
     component: () => import('../views/Page.vue')
+  },
+  {
+    path: '/service/:id',
+    name: 'Order',
+    component: () => import('../views/Order.vue'),
+    children: [
+      {
+        path: '',
+        name: 'OrderP',
+        component: () => import('../components/app/Order_content.vue')
+      },
+      {
+        path: ':child_id',
+        name: 'OrderPChild',
+        component: () => import('../components/app/Order_content.vue')
+      }
+    ]
   },
   {
     path: '/:pathMatch(.*)*',
@@ -48,25 +68,21 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title)
-  if (nearestWithTitle) document.title = nearestWithTitle.meta.title
+  const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta)
+  if (typeof nearestWithTitle.meta.title !== 'undefined') document.title = nearestWithTitle.meta.title
+  if (typeof nearestWithTitle.meta.description !== 'undefined' && document.querySelector('meta[name="description"]')) {
+    document.querySelector('meta[name="description"]')
+      .setAttribute('content', nearestWithTitle.meta.description)
+  }
   const RAuth = to.matched.slice().reverse().find(r => r.meta && r.meta.require_auth)
   if (RAuth) {
-    if (RAuth.meta.require_auth) {
+    if (RAuth.meta.require_auth && localStorage.getItem('hash03h') && localStorage.getItem('hash04p') && localStorage.getItem('hash05s')) {
       $api.users.get_status()
         .then(response => {
-          if (response.data.status === 'ready') next()
-          else if (response.data.status === 'error' && (response.data.message === 'TIM_L' || response.data.message === 'T_N_V')) {
-            $api.users.refresh_token('login/status')
-              .then(response => {
-                if (response.data.status === 'ready') {
-                  $api.token.setToken(response.data.token, response.data.refresh_token)
-                  next()
-                } else next({ name: 'Login' })
-              })
-          } else next({ name: 'Login' })
+          if (response.data.ACL_RESPONSE.status === 'ready' && response.data.ACL_RESPONSE.code === 200) next()
+          else next({ name: 'Login' })
         })
-    }
+    } else next({ name: 'Login' })
   } else next()
 })
 

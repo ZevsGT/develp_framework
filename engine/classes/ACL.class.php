@@ -15,14 +15,15 @@ class ACL {
 	private $dataBase;
 
 	public function __construct($params, $config, $dataBase){
-	    $this->params = $params;
-	    $this->config = $config;
-      $this->dataBase = $dataBase;
-        if (file_exists($_SERVER['DOCUMENT_ROOT'].'/engine/data/ACL.xml')) {
-            $this->ACL = simplexml_load_file($_SERVER['DOCUMENT_ROOT']."/engine/data/ACL.xml");
-        } else {
-            exit('error: Файл ACL не найден!');
-        }
+    $this->params = $params;
+    $this->config = $config;
+    $this->dataBase = $dataBase;
+      if (file_exists($_SERVER['DOCUMENT_ROOT'].'/engine/data/ACL.xml')) {
+          $this->ACL = simplexml_load_file($_SERVER['DOCUMENT_ROOT']."/engine/data/ACL.xml");
+      } else {
+          exit('error: Файл ACL не найден!');
+      }
+    $this->response['status'] = null;
 	}
 
 	public function start(){
@@ -42,8 +43,10 @@ class ACL {
             }
         }
     }
-    $this->response['status'] = 'error';
-    $this->response['message'] = 'У вас недостаточно прав';
+    if($this->response['status'] != 'error'){
+      $this->response['status'] = 'error';
+      $this->response['message'] = 'У вас недостаточно прав';
+    }
 		return false;
 	}
 
@@ -62,7 +65,8 @@ class ACL {
       if($token->lifetime_token($AToken)) {
         $this->group_id = $token->getData()->group_id;
         $this->response['status'] = 'ready';
-        $this->response['message'] = '';
+        $this->response['message'] = 'Token is valid';
+        $this->response['code'] = 200;
         return true;
       } else {
         $this->response['status'] = 'error';
@@ -99,11 +103,13 @@ class ACL {
         $user->store_user_token($this->response['refresh_token']);
         unset($this->dataBase, $user, $token);
         $this->response['status'] = 'ready';
-        $this->response['message'] = 'token_is_true';
+        $this->response['message'] = '';
+        $this->response['code'] = 200;
         return true;
       } else {
         $this->response['status'] = 'error';
         $this->response['message'] = 'T_DT_N_T';
+        $this->response['code'] = 404;
         return false;//не верный токен
       }
     } else {

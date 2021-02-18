@@ -16,9 +16,9 @@
           <li>
             <router-link to="/#portfolio">Портфолио</router-link>
           </li>
-          <li>
+          <!--<li>
             <router-link to="/#command">Наша команда</router-link>
-          </li>
+          </li>-->
           <li>
             <router-link to="/#howwework">Как мы работаем</router-link>
           </li>
@@ -65,13 +65,13 @@
 
     <hr>
     <div class="foo-bi mt-2">
-      <span class="copyrate">© 2020-{{year}} develp.ru - Команда разработчиков</span>
+      <span class="copyrate">© 2020-{{year}} develp.ru - Создание и разработка сайтов. г.Саратов</span>
       <div class="social">
-        <a href="#">8(800)-000-00-00</a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-        <a href="#"><i class="fab fa-telegram-plane"></i></a>
-        <a href="#"><i class="fab fa-vk"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="tel:+79951271482" class="d-block d-lg-inline-block" target="_blank">+79951271482</a>
+        <a href="https://wa.me/79951271482" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://viber.click/79951271482" target="_blank"><i class="fab fa-viber"></i></a>
+        <a href="https://t.me/develp" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+        <a href="https://vk.com/develp_ru" target="_blank"><i class="fab fa-vk"></i></a>
       </div>
     </div>
 

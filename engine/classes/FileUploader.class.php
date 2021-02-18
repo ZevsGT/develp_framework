@@ -8,7 +8,7 @@ class FileUploader {
   private $properties;
   private $rename_f;
 
-  public function __construct($file_type, $upload_dir = 'uploads', $properties, $rename_f = true) {
+  public function __construct($file_type, $properties, $upload_dir = 'uploads', $rename_f = true) {
     $this->upload_dir = trim($upload_dir, '/');
     $this->rename_f = $rename_f;
     if($file_type === 'img') {

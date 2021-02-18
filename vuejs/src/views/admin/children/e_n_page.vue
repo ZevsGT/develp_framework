@@ -10,6 +10,11 @@
           <label for="url" class="form-label">название страницы в url</label>
           <input v-model="form.url_name" type="text" class="form-control" id="url">
         </div>
+        <seo
+          :fTitle="form.seo_title"
+          :fdescription="form.seo_description"
+          @onSeoSend="seoData"
+        />
         <button type="submit" class="btn btn_admin" @click.prevent="send">Сохранить</button>
       </form>
     </div>
@@ -31,11 +36,13 @@ import modal from '@/components/modal.vue'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
+import seo from '@/components/admin/seo.vue'
 
 export default {
   components: {
     ckeditor: CKEditor.component,
-    modal
+    modal,
+    seo
   },
   data () {
     return {
@@ -44,7 +51,9 @@ export default {
       form: {
         title: null,
         url_name: null,
-        data: null
+        data: null,
+        seo_title: null,
+        seo_description: null
       },
       editorConfig: {
         language: 'ru'
@@ -55,7 +64,7 @@ export default {
     if (this.$route.name === 'Pages_edit') {
       this.$api.pages.getDataEdit(this.$route.params.id)
         .then(response => {
-          if (response.data.id) this.form = response.data
+          if (response.data.data.id) this.form = response.data.data
         })
     }
   },
@@ -64,17 +73,21 @@ export default {
       if (this.$route.name === 'Pages_new') {
         await this.$api.pages.newPages(this.form)
           .then(response => {
-            if (response.data.state === 'ready') this.$router.push({ name: 'Pages' })
+            if (response.data.status === 'ready') this.$router.push({ name: 'Pages' })
           })
       } else if (this.$route.name === 'Pages_edit') {
         await this.$api.pages.updateDataPage(this.form.id, this.form)
           .then(response => {
-            if (response.data.state === 'ready') this.visibility = true
+            if (response.data.status === 'ready') this.visibility = true
           })
       }
     },
     redirect () {
       this.$router.push({ name: 'Pages' })
+    },
+    seoData (data) {
+      this.form.seo_title = data.title
+      this.form.seo_description = data.description
     }
   }
 }

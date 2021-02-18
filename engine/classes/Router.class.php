@@ -27,8 +27,8 @@ class Router {
       $this->dataBase = new R();
       $this->dataBase->setup( $db, $this->config['dbuser'], $this->config['dbpassword']);
     } else {
-        // если файл не существует, выводим ошибку
-        exit('error: Файл routes не найден!');
+      // если файл не существует, выводим ошибку
+      exit('error: Файл routes не найден!');
     }
 
     foreach ($routes as $key => $value) {
@@ -38,7 +38,7 @@ class Router {
     unset($routes);
 	}
 
-	public function add($route, $params, $cache, $cache_time){
+	private function add($route, $params, $cache, $cache_time){
 		$route = preg_replace('/{([a-z]+):([^\}]+)}/', '(?P<\1>\2)', (string)$route);
 		$route = '#^'.$route.'$#';
 		$this->routes[$route]['controller'] = (string)$params->controller;
@@ -47,21 +47,20 @@ class Router {
     $this->routes[$route]['cache-time'] = (string)$cache_time;
 	}
 
-	public function ACL_validate(){
+	private function ACL_validate(){
 	  if($this->url == '') return true;//если главная страница
 
 		$ACL = new ACL($this->params, $this->config, $this->dataBase);
 		if($ACL->start()) {
-		  $this->params['RESPONSE'] = $ACL->getResponse();
+		  if($ACL->getResponse()['status']) $this->params['ACL_RESPONSE'] = $ACL->getResponse();
 		  return true;
 		}
 		else{
-      //header('Location: /admin/login');
-      exit(json_encode($ACL->getResponse()));
+      exit(json_encode(['ACL_RESPONSE'=>$ACL->getResponse()]));
 		}
 	}
 
-	public function match(){
+	private function match(){
     $url = trim($_SERVER['REQUEST_URI'], '/');
 		if(count($_GET) > 0) $url = strstr($url,'?', true );
 		$this->url = $url;
@@ -86,18 +85,49 @@ class Router {
 	}
 
 	private function load_apa_template(){
-    if(file_exists($_SERVER['DOCUMENT_ROOT'].$this->config['spa']['spa_load']))
-        include $_SERVER['DOCUMENT_ROOT'].$this->config['spa']['spa_load'];
-      else exit('error:spa Файл не найден!');
+    if(file_exists($_SERVER['DOCUMENT_ROOT'].$this->config['spa']['spa_load'])) {
+      $document = file_get_contents($_SERVER['DOCUMENT_ROOT'] . $this->config['spa']['spa_load']);
+      if (!stripos($_SERVER['REQUEST_URI'], 'admin')) {
+        $cache = new Accelerator('engine/cache/pages', $_SERVER['REQUEST_URI'], '.cache');
+        $cache_mess = $cache->check_cache_exist(true);
+        if($cache_mess == 'CACHE_EXIST') {
+          $data_cache = json_decode($cache->get_cache_contents());
+          return str_replace([
+            '{#title#}',
+            '{#description#}',
+            '{#app#}'
+          ],
+          [
+            $data_cache->title,
+            $data_cache->description,
+            $data_cache->app
+          ], $document);
+        }
+      }
+
+      return str_replace([
+        '{#title#}',
+        '{#description#}',
+        '{#app#}'
+      ],
+      [
+        $this->config['home_title'],
+        $this->config['home_description'],
+        ''
+      ], $document);
+    }
+    else exit('error:spa Файл не найден!');
   }
 
   private function isset_data_request(){
-    if(getallheaders()['Accept'] === 'application/json') {
+    if(isset(getallheaders()['Accept']) && getallheaders()['Accept'] === 'application/json') {
+      if(isset(getallheaders()['X-Client-Time'])) $this->getDifferenceTime(getallheaders()['X-Client-Time']);
       $data = file_get_contents('php://input');
       $_POST = json_decode($data);
       return true;
     }
-    if(getallheaders()['Content-Type'] === 'multipart/form-data') return true;
+
+    if(isset(getallheaders()['Content-Type']) && getallheaders()['Content-Type'] === 'multipart/form-data') return true;
     if(count($_POST) > 0) return true;
     if(count($_GET) > 0) return true;
     return false;
@@ -105,32 +135,35 @@ class Router {
 
 	public function run(){
     if($this->config['spa']['spa_mode'] && !$this->isset_data_request()){
-          $this->load_apa_template();
-      }else {
-          if ($this->match()) {
-              if ($this->ACL_validate()) {
+      echo $this->load_apa_template();
+    }else {
+      if ($this->match()) {
+        if ($this->ACL_validate()) {
+          $controller = 'engine\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
+          if (class_exists($controller)) {
+            $action = $this->params['action'] . 'Action';
+            if (method_exists($controller, $action)) {
 
-                  $controller = 'engine\controllers\\' . ucfirst($this->params['controller']) . 'Controller';
-                  if (class_exists($controller)) {
-                      $action = $this->params['action'] . 'Action';
-                      if (method_exists($controller, $action)) {
+              $controller = new $controller($this->params, $this->dataBase);
+              echo $controller->$action();
 
-                          $controller = new $controller($this->params, $this->dataBase);
-                          echo $controller->$action();
-
-
-                      } else {
-                          exit('action not faoun');
-                      }
-                  } else {
-                      exit("не найден module: " . $controller);
-                  }
-              }
-
+            } else {
+              exit('action not found');
+            }
           } else {
-              exit("not faund 404");
+            exit("не найден module: " . $controller);
           }
+        }
+      } else {
+        exit("not found 404");
       }
+    }
 	}
+
+	private function getDifferenceTime($clientTime) {
+    $clientTime = (int)($clientTime/1000);
+    $time['DifferenceTime'] = $clientTime- time();
+    exit(json_encode($time,JSON_NUMERIC_CHECK));
+  }
  
 }

@@ -8,32 +8,27 @@ class PagesController extends Controller {
   public function newPagesAction() {
     $pages = new PagesModule($this->dataBase);
     if($pages->newPages($_POST)) {
-      $answer['state'] = 'ready';
-      return json_encode($answer);
+      return $this->response_data_JSON(true);
     } else {
-      $answer['error'] = 'Ошибка';
-      return json_encode($answer);
+      return $this->response_data_JSON(false);
     }
   }
 
   public function getPageListAction() {
     $pages = new PagesModule($this->dataBase);
-    $response = $this->route['RESPONSE'];
-    $response['list'] = $pages->get_pagelist($_POST['count']);
-    return json_encode($response, JSON_NUMERIC_CHECK);
+    return $this->response_data_JSON(true, $pages->get_pagelist($_POST->count));
   }
 
   public function deletePageAction(){
     $pages = new PagesModule($this->dataBase);
     $r = $pages->delete_pages($this->route['id']);
-    if($r == 1) $answer['state'] = 'ready';
-    else $answer['error'] = 'Ошибка';
-    return json_encode($answer);
+    if($r == 1) return $this->response_data_JSON(true);
+    else return $this->response_data_JSON(false);
   }
 
   public function getPageEditAction() {
     $pages = new PagesModule($this->dataBase);
-    return $pages->get_json_data_page($this->route['id']);
+    return $this->response_data_JSON(true, $pages->get_data_page($this->route['id']));
   }
 
   public function getPageAction() {
@@ -45,12 +40,9 @@ class PagesController extends Controller {
     $pages = new PagesModule($this->dataBase);
     $id = $pages->update_data($this->route['id'], $_POST);
     if($id){
-      $answer['state'] = 'ready';
-      $answer['id'] = $id;
-      return json_encode($answer);
+      return $this->response_data_JSON(true, $_POST);
     }
-    $answer['error'] = 'Ошибка';
-    return json_encode($answer);
+    return $this->response_data_JSON(false);
   }
 
   public function ckeditorImgAction() {
